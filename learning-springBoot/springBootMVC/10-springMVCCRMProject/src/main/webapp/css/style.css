@@ -1,0 +1,47 @@
+@charset "ISO-8859-1";
+.details {
+	border: 2px solid red;
+  	border-radius: 25px;
+  	width: fit-content;
+ 	padding: 0 2rem 2rem 2rem;
+ 	
+ 	h1 {
+ 		padding: 0.5rem 1.5rem;
+ 	}
+ 	
+ 	th {
+ 		padding: .25rem 1.5rem;
+ 		font-size: 1rem;
+ 	}
+ 	
+ 	td {
+ 		padding: .25rem 1.5rem;
+ 	}
+ 	
+ 	button {
+ 		margin: 1.5rem 0 0 1.5rem;
+  		padding: .5rem 1rem;
+  		font-weight: bold;
+ 	}
+ 	button:hover {
+ 		cursor: pointer;
+ 	}
+ 	
+ 	a {
+ 		margin: 1.5rem 0 0 0;
+  		padding: .5rem 1rem;
+  		font-weight: bold;
+ 	}
+ 	a:hover {
+ 		cursor: pointer;
+ 	}
+ 	
+ 	input[type="submit"] {
+ 		margin: 1.5rem 0 0 0;
+  		padding: .5rem 1rem;
+  		font-weight: bold;
+ 	}
+ 	input[type="submit"]:hover {
+ 		cursor: pointer;
+ 	}
+}
