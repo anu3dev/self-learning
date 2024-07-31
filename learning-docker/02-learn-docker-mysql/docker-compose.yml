@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+ app:
+  build: .
+  ports:
+   - "8080:8080"
+  networks:
+   - my-network
+   
+ db:
+  image: mysql:latest
+  environment:
+   MYSQL_USER: anu
+   MYSQL_PASSWORD: Anu@1234567890
+   MYSQL_ROOT_PASSWORD: 12345
+   MYSQL_DATABASE: docker
+  ports:
+  -  3306:3306
+  networks:
+   - my-network
+  
+networks:
+  my-network: 
+   driver: bridge
