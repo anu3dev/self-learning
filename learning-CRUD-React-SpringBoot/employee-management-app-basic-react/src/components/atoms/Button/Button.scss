@@ -1,0 +1,67 @@
+.buttonComp {
+    &__btn {
+        padding: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        color: white;
+        font-weight: 600;
+        transition-duration: 0.4s;
+    }
+    &__btn:hover {
+        background-color: white;
+        color: black;
+    }
+    
+    &__listFooter {
+        margin: 0 0.5rem;
+    }
+    &__addDetails {
+        margin: 0 0 0 0.5rem;
+    }
+
+    &__update {
+        background-color: #04AA6D;
+        border: .125rem solid #04AA6D;
+    }
+    &__update:hover {
+        border: .125rem solid #04AA6D;
+    }
+
+    &__save {
+        background-color: #04AA6D;
+        border: .125rem solid #04AA6D;
+    }
+    &__save:hover {
+        border: .125rem solid #04AA6D;
+    }
+
+    &__delete {
+        background-color: #f44336;
+        border: .125rem solid  #f44336;
+    }
+    &__delete:hover {
+        border: .125rem solid  #f44336;
+    }
+
+    &__cancel {
+        background-color: #555555;
+        border: .125rem solid #555555;
+    }
+    &__cancel:hover {
+        border: .125rem solid #555555;
+    }
+
+    &__add {
+        background-color: #008CBA;
+        border: .125rem solid #008CBA;
+    }
+    &__add:hover {
+        border: .125rem solid #008CBA;
+    }
+}
+
+.buttonGroup {
+    &__addDetails {
+        text-align: end;
+    }
+}
