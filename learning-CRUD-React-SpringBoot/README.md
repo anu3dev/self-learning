@@ -1,5 +1,5 @@
-# Employee management basic app
+# learning-CRUD-React-SpringBoot
 
-![Alt text](https://github.com/anu3dev/employee-management-app-basic/blob/main/pic1.png "Employee management basic app")
-![Alt text](https://github.com/anu3dev/employee-management-app-basic/blob/main/pic2.png "Employee management basic app")
-![Alt text](https://github.com/anu3dev/employee-management-app-basic/blob/main/pic3.png "Employee management basic app")
+![Alt text](https://github.com/anu3dev/self-learning/blob/main/learning-CRUD-React-SpringBoot/pic1.png "learning-CRUD-React-SpringBoot")
+![Alt text](https://github.com/anu3dev/self-learning/blob/main/learning-CRUD-React-SpringBoot/pic2.png "learning-CRUD-React-SpringBoot")
+![Alt text](https://github.com/anu3dev/self-learning/blob/main/learning-CRUD-React-SpringBoot/pic3.png "learning-CRUD-React-SpringBoot")
