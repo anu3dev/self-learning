@@ -1,11 +1,12 @@
+package part01Basics;
+
 /*
  * method overloading - we can have method with same name but signature should be different.
  * signature means parameter type or number of parameter should be different.
- * method will be called on the basis of @param here.
+ * method will be called on the basis of param here.
  * 
  * method overloading is also called compiled time polymorphism.
  */
-package basicsInJava;
 
 class MethodOverloadingEx1 {
 	
@@ -22,7 +23,8 @@ class MethodOverloadingEx1 {
 	}
 }
 
-public class MethodOverloading {
+public class Part07MethodOverloading {
+
 	public static void main(String[] args) {
 		MethodOverloadingEx1 ex1 = new MethodOverloadingEx1();
 

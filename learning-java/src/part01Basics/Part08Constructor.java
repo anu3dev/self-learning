@@ -1,3 +1,5 @@
+package part01Basics;
+
 /*
  * constructor is a type of a special method or kind of setter with same name as class and doesn't have any return type.
  * Construction are automatically called during object creation only.
@@ -13,7 +15,6 @@
  * 
  * constructor chaining - one constructor calling another one, this can be achieved by super() or this().
  */
-package basicsInJava;
 
 class ConstructorInJavaEx1 {
     private String name;
@@ -77,7 +78,7 @@ class ConstructorInJavaEx2 {
     }
 }
 
-public class ConstructorInJava {
+public class Part08Constructor {
 	public static void main(String[] args) {
 		ConstructorInJavaEx1 ex1 = new ConstructorInJavaEx1(); 
 		/*
@@ -115,3 +116,4 @@ public class ConstructorInJava {
         System.out.println(ex4.getName() +" "+ ex4.getAge() +" "+ ex4.getCost()); 
 	}
 }
+

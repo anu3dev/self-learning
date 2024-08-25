@@ -1,32 +1,44 @@
+package part02OOPS;
+
 /*
+ * 
  * class -> blue print
  * object -> instance
  * new -> used to create object using refrence to a class
  * 
+ * 
  * object -> memory allocated inside heap area
+ * 
  * 
  * instance variable -> created directly within class, memory allocated inside heap area (within object)
  * Default value will be assigned and can be accessed within class and outside as well if object is not private
  * 
+ * 
  * local variable -> created inside class within a method or a loop or a block, memory allocated inside stack area
  * Default values can't be assigned, can be accessed only within a method or block whereever they are defined and scope is local
+ * 
  * 
  * control will go to main and it will create a main area inside stack then memory allocation will happen inside heap 
  * and default value will be assigned, then all the operations will be taken place inside stack.
  * 
+ * 
  * Heap is only used for instance variables and rest happens inside stack
+ * 
  * 
  * Heap memory error -> out of memory error
  * Stack memory error -> stack overflow error
  * 
+ * 
  * Garbage collection in Java is the automated process of deleting code that's no longer needed or used.
+ * 
  * 
  * function and method => if we write function inside a class then it is method 
  * and if we write only function like javascript then it is function.
  * 
+ * 
  * Main method can be overloaded in java. However JVM always invokes main method having String[] args as parameter.
+ * 
  */
-package oopsInJava;
 
 class OopsDog {		
 	/*
@@ -91,7 +103,7 @@ class OopsCalculator {
 	}
 }
 
-public class Oops {
+public class Part01OOPS {
 	public static void main(String[] args) {
 		/*
 		 * example of reference variable and object creation

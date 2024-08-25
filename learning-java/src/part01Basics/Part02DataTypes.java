@@ -1,17 +1,6 @@
 package part01Basics;
 /*
  * 
- * Created in 1995-1996 by Green team of Sun microsystems, James gosling was lead.
- * At that time C was available for functional programming and C++ was ruling the world with OOPS programming and it was from Bell labs.
- * Sun made Java free, open sourced, object oriented and portable or platform independent, these were the reasons of popularity of java.
- * In 2011, Oracle acquired Sun microsystems and made it closed sourced.
- * 
- * 
- * Java is object oriented and portable or platform dependent or WORA.
- * When we write Java code in english, it goes to javaC i.e. Java compiler, JavaC converts it to intermediate language i.e. byte code.
- * JVM takes this byte code and covert it for respective platform, JVM is platform dependent.
- * 
- * 
  * Java is object oriented, platform independent and case-sensetive language.
  * 
  * 
@@ -54,7 +43,7 @@ package part01Basics;
  * 
  */
 
-public class Part02Basics {
+public class Part02DataTypes {
 	/*
 	 * main is the start of code execution
 	 */

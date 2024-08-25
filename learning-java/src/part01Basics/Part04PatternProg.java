@@ -1,5 +1,12 @@
-package basicsInJava;
+package part01Basics;
 
+/*
+ * 
+ * print 5 star in a line
+ * print 5*5 like square
+ * print few letters
+ * 
+ */
 class PrintSquare {
 	PrintSquare(){
 		int num = 9;
@@ -17,7 +24,7 @@ class PrintSquare {
 	}
 }
 
-class DrawPatternExample {	
+public class Part04PatternProg {
 	public static void main(String[] args) {
 		new PrintSquare();
 	}

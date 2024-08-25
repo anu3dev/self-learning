@@ -1,10 +1,16 @@
 package part01Basics;
 /*
  * 
- * Operator -
+ * Arithmetic operators are like +, -, *, /, %
+ * Relational operators are like  >, <, ==, <==, >=, !=
+ * Unary operator are like ++, --, -, +, !
+ * Logical operators are like &&, ||, !
+ * Assignment operator are like =
+ * Ternary operator are like => condition ? if true : if false
+ * Bitwise operator are like &, |, ^, ~
  * 
  */
-public class Part03Basics {
+public class Part03Operator {
 	public static void main (String[] args) {
 		/*
 	     * post and pre increment and decrement / unary operator

@@ -1,7 +1,11 @@
+package part02OOPS;
+
 /*
+ * 
  * Binding methods and variables together is encapsulation.
+ * we do it using getter and setter
+ * 
  */
-package oopsInJava;
 
 class EncapsulationEx1 {
 	
@@ -46,7 +50,7 @@ class EncapsulationEx1 {
 	}
 }
 
-public class Encapsulation {
+public class Part02Encapsulation {
 	public static void main(String[] args) {
 		EncapsulationEx1 ex1 = new EncapsulationEx1();
 		
