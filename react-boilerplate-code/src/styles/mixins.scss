@@ -1,0 +1,11 @@
+@mixin sm-screen {
+    @media (max-width: 36rem){
+        @content;
+    }
+}
+
+@mixin md-screen {
+    @media (min-width: 36rem) and (max-width: 64rem){
+        @content;
+    }
+}

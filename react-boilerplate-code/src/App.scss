@@ -1,0 +1,23 @@
+@import './styles/main.scss';
+
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+// .App {
+//   background-color: $yellow-color;
+// }
+
+// @include md-screen {
+//   .App {
+//     background-color: $green-color;
+//   }
+// }
+
+// @include sm-screen {
+//   .App {
+//     background-color: $red-color;
+//   }
+// }
