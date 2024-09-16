@@ -25,3 +25,5 @@ clonable
 exp
 ar
 jagged
+duplicacy
+speciality
