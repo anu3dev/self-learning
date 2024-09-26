@@ -27,3 +27,14 @@ ar
 jagged
 duplicacy
 speciality
+deque
+arraylist
+linkedlist
+min
+algo
+po
+anu
+nit
+ish
+laila
+emp

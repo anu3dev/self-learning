@@ -205,8 +205,10 @@ class StringEx10 {
 		StringBuilder str3 = new StringBuilder("kumar");
 		System.out.println(str2.equals(str3));
 		/*
+		 * 
 		 * equal method is part of main parent i.e. object class and
 		 * it inherited to every child class and it is not overridden by team java compares the reference.
+		 * 
 		 */
 		System.out.println(str2.compareTo(str3));
 	}
@@ -255,7 +257,7 @@ public class P05String {
 		
 		//new StringEx9();
 		
-		new StringEx10();
+		//new StringEx10();
 		
 		//new StringEx11();
 	}
