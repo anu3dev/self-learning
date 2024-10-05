@@ -38,3 +38,8 @@ nit
 ish
 laila
 emp
+nums
+enum
+dev
+nepal
+lifelock
