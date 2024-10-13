@@ -43,3 +43,6 @@ enum
 dev
 nepal
 lifelock
+csrf
+http
+stateless
