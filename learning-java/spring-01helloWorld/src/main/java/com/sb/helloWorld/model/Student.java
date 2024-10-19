@@ -7,14 +7,18 @@ public class Student {
 	private String city;
 	
 	/*
-	 *  static will be called only once when class will be loaded.
+	 * 
+	 * static will be called only once when class will be loaded.
+	 *  
 	 */
 	static {
 		System.out.println("Student class called - printing from static block");
 	}
 	
 	/*
-	 *  constructor will be called every time when object will be created.
+	 * 
+	 * constructor will be called every time when object will be created.
+	 *  
 	 */
 	public Student() {
 		super();
@@ -47,7 +51,9 @@ public class Student {
 	}
 	
 	/*
-	 *  this method is to print the object.
+	 * 
+	 * this method is to print the object.
+	 * 
 	 */
 	@Override
 	public String toString() {

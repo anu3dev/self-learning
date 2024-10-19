@@ -17,8 +17,6 @@ public class Application {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(Application.class, args);
 		
-		System.out.println("");
-		
 		/*
 		 *  In spring, class called as bean.
 		 */
@@ -41,7 +39,5 @@ public class Application {
 		 */
 		service.addStudent(student1);
 		service.addStudent(student2);
-		
-		System.out.println("");
 	}
 }
