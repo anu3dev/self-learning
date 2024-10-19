@@ -1,4 +1,4 @@
-package com.sb.helloWorld;
+package com.sb.basicApp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
