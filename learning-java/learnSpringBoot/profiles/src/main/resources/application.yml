@@ -1,0 +1,8 @@
+myproject:
+  name: menti
+
+spring:
+  main:
+    allow-circular-references: true
+  profiles:
+    active: java,dev

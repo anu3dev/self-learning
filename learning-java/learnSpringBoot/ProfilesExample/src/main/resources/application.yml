@@ -1,0 +1,9 @@
+myproject:
+  name: menti
+server:
+  port: 8084
+spring:
+  main:
+    allow-circular-references: true
+  profiles:
+    active: java, it
