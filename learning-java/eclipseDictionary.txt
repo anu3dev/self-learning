@@ -48,3 +48,14 @@ http
 stateless
 username
 jwt
+hibernate
+dao
+lombok
+website
+xml
+json
+seema
+mongo
+mongod
+dbs
+mongosh

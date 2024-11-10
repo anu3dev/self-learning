@@ -32,3 +32,14 @@ public class Application {
 		System.out.println(status);
 	}
 }
+
+/*
+ * 
+ * Dependencies ->
+ * Spring Data JPA
+ * MySQL Driver
+ * Lombok
+ * 
+ * JPARepository extends pagingandsortingRepository extends crudRepository extends Repository
+ * 
+ */

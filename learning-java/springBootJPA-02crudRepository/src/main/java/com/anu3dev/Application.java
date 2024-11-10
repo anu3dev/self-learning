@@ -69,3 +69,14 @@ public class Application {
 	    System.out.println(status4);
 	}
 }
+
+/*
+ * 
+ * Dependencies ->
+ * Spring Data JPA
+ * MySQL Driver
+ * Lombok
+ * 
+ * crudRepository extends Repository
+ * 
+ */

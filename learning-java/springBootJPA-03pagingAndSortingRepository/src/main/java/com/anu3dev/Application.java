@@ -24,3 +24,14 @@ public class Application {
 		service.fetchDetailsByPagination(2);
 	}
 }
+
+/*
+ * 
+ * Dependencies ->
+ * Spring Data JPA
+ * MySQL Driver
+ * Lombok
+ * 
+ * pagingandsortingRepository extends crudRepository extends Repository
+ * 
+ */
