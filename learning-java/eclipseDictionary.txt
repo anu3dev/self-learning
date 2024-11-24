@@ -59,3 +59,10 @@ mongo
 mongod
 dbs
 mongosh
+localhost
+jsp
+webapp
+src
+app
+varchar
+pojo

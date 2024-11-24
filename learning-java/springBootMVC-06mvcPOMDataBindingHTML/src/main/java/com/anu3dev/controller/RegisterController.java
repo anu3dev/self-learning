@@ -11,6 +11,7 @@ import com.anu3dev.model.Employee;
 
 @Controller
 public class RegisterController {
+	// http://localhost:8090/register
 	@GetMapping("/register")
 	public String responseHome(){
 		return "register";
