@@ -24,6 +24,7 @@ public class TicketController {
 	@Autowired
 	private ITicketService service;
 	
+	// http://localhost:8091/TicketBookingAPI/book-ticket/get-ticketnumber
 	@PostMapping("/get-ticketnumber")
 	@Operation(summary = "POST operation", description = "This API will accept passenger info and generate ticket number")
 	public ResponseEntity<Integer> registerPassenger(@RequestBody Passenger passenger){
@@ -32,6 +33,7 @@ public class TicketController {
 		return new ResponseEntity<Integer>(ticketNumber, HttpStatus.CREATED);
 	}
 	
+	// http://localhost:8091/TicketBookingAPI/book-ticket/get-ticket/{ticketNumber}
 	@GetMapping("/get-ticket/{ticketNumber}")
 	@Operation(summary = "Get operation", description = "This API will accept ticket number and generate full ticket")
 	public ResponseEntity<Ticket> getTicket(@PathVariable("ticketNumber") Integer ticketNumber){
