@@ -1,4 +1,4 @@
-package com.sb.profilesExample.beans;
+package com.anu3dev.beans;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

@@ -1,15 +1,15 @@
-package com.sb.profilesExample.beans;
+package com.anu3dev.beans;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("java")
-public class JavaCourse implements Courses {
+@Profile("springBoot")
+public class SpringBootCourse implements Courses {
 
 	@Override
 	public boolean coursePurchase() {
-		System.out.println("Java course purchased!");
+		System.out.println("Spring boot course purchased!");
 		return true;
 	}
 }
