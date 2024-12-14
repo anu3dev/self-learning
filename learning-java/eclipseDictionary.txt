@@ -67,3 +67,4 @@ app
 varchar
 pojo
 api
+auth
