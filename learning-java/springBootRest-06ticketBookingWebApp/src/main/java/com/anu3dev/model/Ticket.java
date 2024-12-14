@@ -8,7 +8,7 @@ public class Ticket{
 	private String departure;
 	private String arrival;
 	private String dateOfJourney;
-	
+
 	public Integer getTicketNumber() {
 		return ticketNumber;
 	}

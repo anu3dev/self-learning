@@ -7,15 +7,14 @@
 </head>
 <body>
 <h1>Kindly Enter the ticket number below to get Full Ticket Details</h1>
-<form  th:action="@{/get-ticket}" >
+<form  th:action="@{/get-ticket-rest-template}" >
          <table>
              <tr>
-             <td>Ticket Number :</td>
-            <!-- <td><input type="text" th:field="*{ticketNumber}" /></td> --> 
-            <td><input type="text"  name="ticketNumber" /></td>
+             	<td>Ticket Number :</td>
+            	<td><input type="text"  name="ticketNumber" /></td>
              </tr>
-                <tr>
-              <td><input type="submit"  value="Get Ticket" /></td>
+             <tr>
+             	<td><input type="submit"  value="Get Ticket" /></td>
              </tr>
          </table>
 	</form>
