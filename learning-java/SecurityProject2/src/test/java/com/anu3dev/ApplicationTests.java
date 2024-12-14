@@ -1,10 +1,10 @@
-package com.telusko.SpringHateaoAppl;
+package com.anu3dev;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringHateaoApplApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

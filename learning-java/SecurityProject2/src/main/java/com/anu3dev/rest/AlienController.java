@@ -3,6 +3,7 @@ package com.anu3dev.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,12 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 public class AlienController {
-	List<Alien> list =	new ArrayList<>(List.of(
+	List<Alien> list=new ArrayList<>(List.of(
 			new Alien(1,"Rohan","Bengaluru"), 
 			new Alien(2,"Rohit","Delhi"), 
-			new Alien(3,"Ramesh","Mumbai")));
+			new Alien(3,"Ramesh","Mumbai")
+			));
 	
-	// select basic auth in postman and enter user and password which has been written in application.properties
+	// pass {"name": "anurag", "password": "anurag"} as body
 	
 	// http://localhost:8080/get-aliens
 	@GetMapping("/get-aliens")
@@ -33,14 +35,16 @@ public class AlienController {
 		return "session ID "+ request.getSession().getId();
 	}
 	
-	/*
-	 * http.csrf(csrf -> csrf.disable());
-	 * post request will not work until adding above into securityFilterChain method.
-	 */
-	// http://localhost:8080/add-alien
-	@PostMapping("/add-alien")
-	public List<Alien> addAlien(@RequestBody Alien alien){
+	@PostMapping("/add-aliens")
+	public void addAlien(@RequestBody Alien alien){
 		list.add(alien);
-		return list;
+		System.out.println(list);
+	}
+	
+	
+	
+	@GetMapping("/csrf")
+	public CsrfToken getCsrfToken(HttpServletRequest request){
+		return (CsrfToken) request.getAttribute("_csrf");
 	}
 }
