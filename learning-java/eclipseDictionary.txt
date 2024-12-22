@@ -68,3 +68,7 @@ varchar
 pojo
 api
 auth
+postmapping
+config
+cyber
+monolith
