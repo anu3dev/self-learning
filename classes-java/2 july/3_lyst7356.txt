@@ -1,0 +1,89 @@
+﻿Inheritance
+   -    What
+   -    How
+   -    How to use inheritance in the application and how not to.
+   -    Constructor (super)
+Polymorphism
+    - Method Overriding
+
+
+
+
+
+
+
+
+Client - Execute - .exe
+
+
+software project - no main -  library (used to build application)
+
+
+
+
+Inheritance
+
+
+Calc - Parent, Super, base
+CalcPro - Child, sub, derived
+CalcProMax - Child, sub, derived
+
+
+Single parent and Single child - Single level inheritance
+Multi-level inheritance
+more than one parent - Multiple inheritance
+
+
+
+
+
+
+A and B
+C extends A,B
+
+
+Ambiguity issue -> Diamond problem
+
+
+
+
+Water fall model
+1. Requirements
+2. Analyse
+3. Designing
+4. Coding
+5. Testing
+6. Deployment
+7. Maintenance
+
+
+
+
+
+
+IS-A
+HAS-A
+
+
+BathTub
+BathRoom HAS-A BathTub
+
+
+Iphone14
+Iphone14Pro IS-A Iphone14
+
+
+class Phone {
+    call();
+    move();
+}
+
+
+class Human {          // IS-A      // Inheritance
+
+
+    Phone obj = new Phone();        // HAS-A // Composition
+
+
+    dance();
+}

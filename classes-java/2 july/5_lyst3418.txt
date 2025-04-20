@@ -1,0 +1,24 @@
+﻿// actions - methods
+// class
+// object
+
+
+
+
+public class LaunchDemo {
+    public static void main(String[] args) {
+
+
+
+
+        CalcProMax obj = new CalcProMax();
+        int result1 = obj.add(5,7);
+        int result2 = obj.sub(6,2);
+        int result3 = obj.multi(7,2);
+        System.out.println(result1);
+        System.out.println(result2);
+        System.out.println(result3);
+
+
+    }
+}

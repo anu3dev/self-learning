@@ -1,0 +1,41 @@
+﻿class Phone{
+    public void callingFromAPhoneToDiscussSomethingImportant(){
+        System.out.println("Calling");
+    }
+}
+class IPhone extends Phone{
+    // Hey compiler, my intention here is to override the method
+    @Override
+    public void callingFromAPhoneToDiscussSomethingImportant(){         // Method Overriding - Run time polymorphism
+        System.out.println("Calling from an IPhone");
+    }
+}
+
+
+//class PixelPhone extends Phone {
+//    public void call(){         // Method Overriding
+//        System.out.println("Calling from an Pix");
+//    }
+//}
+
+
+
+
+public class PolyDemo {
+    public static void main(String[] args) {
+
+
+//        Phone obj = new PixelPhone();
+//        obj.call();
+        Phone obj = new IPhone();
+        obj.callingFromAPhoneToDiscussSomethingImportant();
+
+
+
+
+
+
+//        Phone obj = new Phone();
+//        obj.call(6);    // method overloading - compile time polymorphism
+    }
+}

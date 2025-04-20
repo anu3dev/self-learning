@@ -1,0 +1,29 @@
+﻿class P
+{
+    int num = 9;        // instance
+}
+
+
+class Q extends P
+{
+    int num = 8;
+    public void show()
+    {
+        int num = 7;
+        System.out.println(super.num);
+    }
+}
+
+
+
+
+public class ThisSuperDemo {
+    public static void main(String[] args) {
+
+
+        Q obj = new Q();
+        obj.show();
+
+
+    }
+}

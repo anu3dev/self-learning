@@ -1,0 +1,4 @@
+Name= Hyder
+Age=29
+city= Bengaluru
+exp= 8+
