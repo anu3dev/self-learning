@@ -72,3 +72,6 @@ postmapping
 config
 cyber
 monolith
+omega
+theta
+parabolic
