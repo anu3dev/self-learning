@@ -33,8 +33,7 @@
  * Drop constant multipliers
  */
 
-public class DSA01Basics {
-	
+class DSA01BasicsEx1 {
 	/**
 	 * time complexity of constant algorithm-
 	 */
@@ -87,7 +86,7 @@ public class DSA01Basics {
 		 * 
 		 * total will be 1 + 3(n + 1) + 3n =>6n + 4
 		 */
-		for(int i = 1; i <= n; n++) {
+		for(int i = 1; i <= n; i++) {
 			
 			/**
 			 * fetching value of sum, fetching value of i, adding it and assigning it back,
@@ -143,6 +142,19 @@ public class DSA01Basics {
 		 * will be parabolic graph b/w time and volume
 		 */
 	}
-	
-	public static void main(String[] args) {}
+}
+
+public class DSA01Basics {
+	public static void main(String[] args) {
+		DSA01BasicsEx1 utils = new DSA01BasicsEx1();
+		int sum = utils.sum(5,7);
+		System.out.println(sum);
+		
+		System.out.println("\n\n");
+		int findSum = utils.findSum(3);
+		System.out.println(findSum);
+		
+		System.out.println("\n\n");
+		utils.print(4);
+	}
 }
