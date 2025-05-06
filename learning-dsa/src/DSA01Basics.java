@@ -147,6 +147,7 @@ class DSA01BasicsEx1 {
 public class DSA01Basics {
 	public static void main(String[] args) {
 		DSA01BasicsEx1 utils = new DSA01BasicsEx1();
+		
 		int sum = utils.sum(5,7);
 		System.out.println(sum);
 		
