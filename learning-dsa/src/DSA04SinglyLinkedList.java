@@ -34,7 +34,7 @@ public class DSA04SinglyLinkedList {
 	// Calculating length of singly linked list
 	public void length() {
 		if(head == null) {
-			System.out.println("count is zero");
+			System.out.println("length is zero");
 			return;
 		}
 		int count = 0;
@@ -43,7 +43,7 @@ public class DSA04SinglyLinkedList {
 			count++;
 			current = current.next;
 		}
-		System.out.println("count is " + count);
+		System.out.println("length is " + count);
 	}
 	
 	// Inserting node at first of singly linked list
@@ -82,7 +82,7 @@ public class DSA04SinglyLinkedList {
 			int count = 1;
 			
 			while(count < position - 1) {
-				if(previous == null) {
+				if(previous.next == null) {
 					System.out.println("Invalid position...");
 					return;
 				}
@@ -97,14 +97,54 @@ public class DSA04SinglyLinkedList {
 		display();
 	}
 	
+	// Deleting first node
 	public void deleteFirst() {
 		if(head == null) {
 			System.out.println("Seems linked list has no value...");
 			return;
 		}
-		ListNode temp = head;
 		head = head.next;
-		temp.next = null;
+		
+		display();
+	}
+	
+	// Deleting last node
+	public void deleteLast() {
+		if(head == null) {
+			System.out.println("Seems linked list has no value...");
+			return;
+		}
+		
+		ListNode current = head;
+		ListNode previous = null;
+		
+		while(current.next != null) {
+			previous = current;
+			current = current.next;
+		}
+		previous.next = null;
+		
+		display();
+	}
+	
+	// Deleting any node at given position
+	public void delete(int position) {
+		if(head == null) {
+			System.out.println("Seems linked list has no value...");
+			return;
+		}
+		
+		ListNode previous = head;
+		int count = 1;
+		
+		while(count < position) {
+			if(previous.next == null) {
+				System.out.println("Invalid position...");
+				return;
+			}
+			previous = previous.next;
+			count++;
+		}
 		
 		display();
 	}
@@ -144,10 +184,20 @@ public class DSA04SinglyLinkedList {
 		// 3 --> 9 --> 10 --> 23 --> 1 --> 8 --> 11 --> 13 --> null
 		sl1.insert(9, 33);
 		// 3 --> 9 --> 10 --> 23 --> 1 --> 8 --> 11 --> 13 --> 33 --> null	
-		sl1.insert(19, 33);
+		sl1.insert(11, 33);
 		// Invalid position...
 		
 		System.out.println("\nDeleting first node of singly linked list:-");
 		sl1.deleteFirst();
+		
+		System.out.println("\nDeleting last node of singly linked list:-");
+		sl1.deleteLast();
+		
+		System.out.println("\nDeleting any node at given place of singly linked list:-");
+		//DSA04SinglyLinkedList sl2 = new DSA04SinglyLinkedList();
+		sl1.delete(7);
+		//Invalid position...
+		sl1.delete(18);
+		//Invalid position...
 	}
 }
