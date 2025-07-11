@@ -218,4 +218,19 @@ const findSecondLargestNumber2 = (arr) => {
  * the array should be rotated to [4, 5, 1, 2, 3].
  * Note: If k is non-negative, the array is rotated to the right.
  */
- 
+const rotateArray1 = (arr, num) => {
+	let size = arr.length;
+	
+	if(size < num){
+		num = num % size;
+	}
+	
+	const rotatedArr = arr.splice(size - num, size); 	// O(n)
+	arr.unshift(...rotatedArr);							// O(n)
+	return arr;
+}
+console.log(rotateArray1([1, 2, 3, 4, 5], 2));
+//[ 4, 5, 1, 2, 3 ]
+// Time complexity: O(n) for both splice and unshift
+// Space complexity: O(n) for the new array created by splice
+// total O(n) time and space complexity
