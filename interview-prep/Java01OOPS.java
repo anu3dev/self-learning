@@ -49,7 +49,7 @@ class Animal {
     }
 }
 
-class Dog extends Animal {
+class DogEx01 extends Animal {
     @Override
     public void makeSound() { // method overriding
         System.out.println("Dog barks");
@@ -96,7 +96,7 @@ public class Java01OOPS {
         System.out.println("Employee name: " + e.getName() + ", ID: " + e.getEmployeeId());
 
         // Polymorphism
-        Animal a = new Dog(); // Animal reference, Dog object
+        Animal a = new DogEx01(); // Animal reference, Dog object
         a.makeSound(); // Output: Dog barks
 
         // Abstraction

@@ -26,7 +26,7 @@ class Cat extends Animal {
 // Method can also be overridden in the child class
 // eat method is inherited from Animal but overridden in Dog
 // Dog can also have its own specific methods like bark
-class Dog extends Animal {
+class DogEx02 extends Animal {
     @Override
     void eat() {
         System.out.println("Dog eats");
@@ -79,7 +79,7 @@ public class Java02JavaExtendsImplementsExample {
         cat.eat();      // Animal eats - inherited from Animal
         cat.meow();     // Cat meows - specific to Cat
 
-        Dog dog = new Dog();
+        DogEx02 dog = new DogEx02();
         dog.eat();      // Dog eats - overridden from Animal
         dog.bark();     // Dog barks - specific to Dog
 
