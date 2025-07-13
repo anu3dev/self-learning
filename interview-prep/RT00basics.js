@@ -1,2 +1,0 @@
-// important interview questions list:-
-
