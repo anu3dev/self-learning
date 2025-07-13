@@ -11,6 +11,9 @@
 class Person {
     private String name; // private field, cannot be accessed directly outside the class
 
+    // Consstructor will be always be with same name as class name
+    // Constructor will be called when object is created
+    // Constructor is used to initialize the object
     public Person(String name) {
         this.name = name;
     }
@@ -38,7 +41,8 @@ class Employee extends Person { // Employee inherits from Person
     }
 }
 
-// 3. Polymorphism: Ability to take many forms. In Java, achieved via method overriding and interfaces.
+// 3. Polymorphism: Ability to take many forms.
+// In Java, achieved via method overriding and interfaces.
 class Animal {
     public void makeSound() {
         System.out.println("Animal makes a sound");
@@ -51,6 +55,14 @@ class Dog extends Animal {
         System.out.println("Dog barks");
     }
 }
+
+/**
+ * Method Overriding - When a subclass provides its own implementation of a method that is already defined in its superclass.
+ * method overriding enables runtime polymorphism
+ * 
+ * Method Overloading - When two or more methods in the same class have the same name but different parameter lists (type, number, or order).
+ * Method overloading enables compile-time polymorphism
+ */
 
 // 4. Abstraction: Hiding complex implementation details and showing only essential features.
 abstract class Shape { // abstract class cannot be instantiated

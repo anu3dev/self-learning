@@ -4,34 +4,25 @@
  */
 
 class Vehicle {
-    public void drive () {
-        // normal driving behavior
-    }
-}
-
-class PassengerVehicle extends Vehicle {
-    @Override
-    public void drive() {
-        super.drive();
-    }
-}
-/**
- * Problem Example: Tight coupling, hard to extend driving behavior
- */
-class VehicleWithProblem {
     public void drive() {
         System.out.println("Driving with normal behavior");
     }
 }
 
-class SportsCarWithProblem extends VehicleWithProblem {
+class PassengerVehicle extends Vehicle {
+    // Can use the same drive method as Vehicle because it is normal driving behavior
+}
+
+// have to override the drive method for specific behaviors
+class SportsCar extends Vehicle {
     @Override
     public void drive() {
         System.out.println("Driving fast!");
     }
 }
 
-class OffRoadVehicleWithProblem extends VehicleWithProblem {
+// have to override the drive method for specific behaviors
+class OffRoadVehicle extends Vehicle {
     @Override
     public void drive() {
         System.out.println("Driving off-road!");
@@ -77,14 +68,15 @@ class VehicleWithStrategy {
 }
 
 // Usage Example
-class Main {
+class LowLevelDesign03SDP {
     public static void main(String[] args) {
         VehicleWithStrategy passengerVehicle = new VehicleWithStrategy(new NormalDriveStrategy());
-        VehicleWithStrategy sportsCar = new VehicleWithStrategy(new SportsDriveStrategy());
-        VehicleWithStrategy offRoadVehicle = new VehicleWithStrategy(new OffRoadDriveStrategy());
-
         passengerVehicle.drive(); // Driving with normal behavior
+
+        VehicleWithStrategy sportsCar = new VehicleWithStrategy(new SportsDriveStrategy());
         sportsCar.drive();        // Driving fast!
+
+        VehicleWithStrategy offRoadVehicle = new VehicleWithStrategy(new OffRoadDriveStrategy());
         offRoadVehicle.drive();   // Driving off-road!
     }
 }
