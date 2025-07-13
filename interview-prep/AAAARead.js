@@ -9,5 +9,4 @@
 
 
 // Java Interview Preparation Topics
-// Difference between extends and implements
 // OOPS concept in detail

@@ -73,7 +73,7 @@ class Frog extends Animal implements Swimmable {
     }
 }
 
-public class Java01JavaExtendsImplementsExample {
+public class Java02JavaExtendsImplementsExample {
     public static void main(String[] args) {
         Cat cat = new Cat();
         cat.eat();      // Animal eats - inherited from Animal
