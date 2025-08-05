@@ -1,3 +1,4 @@
+package Java;
 /**
  * Difference between extends and implements in Java:
  * - `extends` is used for class inheritance, allowing a class to inherit properties and methods from another class.
@@ -73,7 +74,7 @@ class Frog extends Animal implements Swimmable {
     }
 }
 
-public class Java02JavaExtendsImplementsExample {
+public class J02ExtendsImplements {
     public static void main(String[] args) {
         Cat cat = new Cat();
         cat.eat();      // Animal eats - inherited from Animal

@@ -229,8 +229,74 @@ const rotateArray1 = (arr, num) => {
 	arr.unshift(...rotatedArr);							// O(n)
 	return arr;
 }
-console.log(rotateArray1([1, 2, 3, 4, 5], 2));
-//[ 4, 5, 1, 2, 3 ]
+//console.log(rotateArray1([1, 2, 3, 4, 5], 2)); //[ 4, 5, 1, 2, 3 ]
 // Time complexity: O(n) for both splice and unshift
 // Space complexity: O(n) for the new array created by splice
 // total O(n) time and space complexity
+const rotateArray2 = (arr, num) => {
+    const size = arr.length;
+    if(size > num){
+        num = num % size; // Handle cases where k is greater than array length
+    }
+    if (num === 0) return arr; // No rotation needed
+
+    const reverse = (left, right) => {
+        while (left < right) {
+            const temp = arr[left];
+            arr[left++] = arr[right];
+            arr[right--] = temp;
+        }
+    };
+
+    reverse(0, size - 1); // Reverse the entire array
+    reverse(0, num - 1); // Reverse the first k elements
+    reverse(num, size - 1); // Reverse the remaining elements
+
+    return arr;
+}
+//console.log(rotateArray1([1, 2, 3, 4, 5], 2)); //[ 4, 5, 1, 2, 3 ]
+// time complexity: O(n) for reversing the array
+// space complexity: O(1) as we are reversing in place, no extra space used
+
+
+
+/**
+ * Ques 8 - Remove Duplicates from Sorted Array
+ * Given a sorted array, remove the duplicates in-place such that each element appears 
+ * only once and return the new length.
+ */
+const removeDuplicates1 = (arr) => {
+    if (arr.length === 0) return 0; // Handle empty array case
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === arr[i + 1]) {
+            arr.splice(i + 1, 1); // Remove the duplicate element
+            i--; // Adjust index after removal
+        }
+    }
+
+    return arr.length; // Return the new length of the array
+}
+//console.log(removeDuplicates1([1, 1, 2, 2, 3, 4])); // Output: 4, array becomes [1, 2, 3, 4]
+// time complexity: O(n^2) due to splice operation
+// space complexity: O(1) as we are modifying the array in place
+
+
+
+const removeDuplicates2 = (arr) => {
+    if (arr.length === 0) return 0; // Handle empty array case
+
+    let uniqueIndex = 0; // Pointer for the next unique element
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] !== arr[uniqueIndex]) {
+            uniqueIndex++; // Move to the next unique index
+            arr[uniqueIndex] = arr[i]; // Update the array with the new unique element
+        }
+    }
+
+    return uniqueIndex + 1; // Return the new length of the array
+}
+//console.log(removeDuplicates2([1, 1, 2, 2, 3, 4])); // Output: 4, array becomes [1, 2, 3, 4]
+// time complexity: O(n) as we traverse the array once
+// space complexity: O(1) as we are modifying the array in place

@@ -1,3 +1,4 @@
+package Java;
 /*
  * Object-Oriented Programming (OOP) in Java is a programming paradigm based on the concept of "objects",
  * which can contain data (fields) and code (methods). The four main principles of OOP are:
@@ -83,7 +84,7 @@ class Circle extends Shape {
 }
 
 // Example usage:
-public class Java01OOPS {
+public class J01OOPS {
     public static void main(String[] args) {
         // Encapsulation
         Person p = new Person("Alice");

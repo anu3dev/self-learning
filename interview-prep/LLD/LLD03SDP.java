@@ -1,7 +1,16 @@
+package LLD;
 /**
  * Strategy Design Pattern
  * This code demonstrates the Strategy Design Pattern by defining a strategy interface
  */
+
+ /**
+  * Difference between is a relationship and has a relationship:
+  * - "Is a" relationship is used for inheritance, where a subclass is a specialized
+  *   version of a parent class.
+  * - "Has a" relationship is used for composition, where a class contains references
+  *   to other classes as part of its state.
+  */
 
 class Vehicle {
     public void drive() {
@@ -58,6 +67,7 @@ class OffRoadDriveStrategy implements DriveStrategy {
 class VehicleWithStrategy {
     private DriveStrategy driveStrategy;
 
+    // Constructor injection for the strategy
     public VehicleWithStrategy(DriveStrategy driveStrategy) {
         this.driveStrategy = driveStrategy;
     }
@@ -68,7 +78,7 @@ class VehicleWithStrategy {
 }
 
 // Usage Example
-class LowLevelDesign03SDP {
+class LLD03SDP {
     public static void main(String[] args) {
         VehicleWithStrategy passengerVehicle = new VehicleWithStrategy(new NormalDriveStrategy());
         passengerVehicle.drive(); // Driving with normal behavior
