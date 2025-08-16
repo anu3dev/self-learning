@@ -28,7 +28,7 @@
 
 - [File Explorer/ VS Code Sidebar]()
 
-- [Progress Bar](https://codesandbox.io/p/sandbox/progress-bar-xkhppz)
+- [Progress Bar code](https://codesandbox.io/p/sandbox/progress-bar-xkhppz) | [Demo](https://xkhppz.csb.app/)
 
 - [OTP Input]()
 
