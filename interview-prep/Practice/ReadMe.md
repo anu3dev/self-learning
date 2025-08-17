@@ -36,7 +36,7 @@
 
 - [Progress Bar code](https://codesandbox.io/p/sandbox/progress-bar-xkhppz) | [Demo](https://xkhppz.csb.app/)
 
-- [OTP Input]()
+- [OTP Input](https://codesandbox.io/p/sandbox/otp-screen-3mrkdr) | [Demo](https://3mrkdr.csb.app/)
 
 - [Nested Checkboxes ]()
 
