@@ -29,11 +29,6 @@
 
 - [Pagination code](https://codesandbox.io/p/sandbox/pagination-ppfvj8) | [Demo](https://ppfvj8.csb.app/)
 
-
-- [Autocomplete Search Bar]()
-
-- [File Explorer/ VS Code Sidebar]()
-
 - [Progress Bar code](https://codesandbox.io/p/sandbox/progress-bar-xkhppz) | [Demo](https://xkhppz.csb.app/)
 
 - [OTP Input](https://codesandbox.io/p/sandbox/otp-screen-3mrkdr) | [Demo](https://3mrkdr.csb.app/)
@@ -41,3 +36,44 @@
 - [Nested Checkboxes ]()
 
 - [Tic Tac Toe Game]()
+
+- [Autocomplete Search Bar]()
+
+- [File Explorer/ VS Code Sidebar]()
+
+- [Toast Component]()
+    - LLD
+
+    ## 📌 Requirement Gathering
+
+    ### Functional Requirements
+    - **Notification Types**: success, info, warning, error  
+    - **Customization**: text, duration, animation, position  
+    - **Animation**: fade, pop, slide  
+    - **Position**: top left/right, bottom left/right  
+    - **Close Button**: each notification has a dismiss button  
+    - **Stacking Behaviour**: multiple notifications can appear in sequence  
+    - **Notification Queue**: handles multiple notifications efficiently  
+
+    ### Non-Functional Requirements
+    - **Performance**: lightweight and efficient  
+    - **Accessibility**: supports screen readers and keyboard navigation  
+    - **User Experience**: smooth interactions and intuitive design  
+    - **Compatibility**: works across modern browsers and devices  
+    - **Scalability**: easy to extend with new features  
+
+    - HLD
+
+    ## 📌 Notification Design
+
+    ### Components
+    - **Custom Message**: user-defined content inside notification  
+    - **Icons**: 4 types based on notification type  
+    - **Background Color**: auto-adjusted based on type (success, warning, info, error)  
+    - **Close Button**: allows dismissing notifications  
+
+    ### Notification Types
+    - ✅ **Success Message** – Green background with success icon  
+    - ℹ️ **Info Message** – Blue background with info icon  
+    - ⚠️ **Warning Message** – Yellow background with warning icon  
+    - ❌ **Error Message** – Red background with error icon 
