@@ -466,130 +466,84 @@ public void updateUser(User user) {
 
 #### **Q. What is Dependency Injection (DI)?**
 
-**Definition:**  
 Dependency Injection means **Spring automatically provides required objects (dependencies)** to a class, instead of you manually creating them using new.
 
 It helps in:
-
-- **Loose coupling** between classes
+- **Loose coupling** between **classes**
 - **Reusability** and **testability**
-- **Cleaner and more maintainable code**
+- **Cleaner** and more **maintainable** code
 
-**🧩 Types of Dependency Injection**
+#### **Types of Dependency Injection**
 
 **A. Constructor Injection (Recommended)**
-
 - Dependencies are passed via the **class constructor**.
 - Ensures the object is always created with required dependencies.
 - Works best for **immutability** and **unit testing**.
 
+**🟢 Think: "Dependencies are fixed when the object is created."**
 ```java
-
 @Service
-
 public class OrderService {
+    private final PaymentService paymentService;
+    @Autowired
+    public OrderService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
-private final PaymentService paymentService;
-
-@Autowired
-
-public OrderService(PaymentService paymentService) {
-
-this.paymentService = paymentService;
-
+    public void placeOrder() {
+        paymentService.processPayment();
+    }
 }
-
-public void placeOrder() {
-
-paymentService.processPayment();
-
-}
-
-}
-
 ```
 
-🟢 Think: "Dependencies are fixed when the object is created."
-
 **B. Setter Injection**
-
 - Dependencies are set using **setter methods**.
 - Can be used when dependencies are **optional** or **changeable**.
 
+**🟢 Think: "You can set or replace the dependency later."**
 ```java
-
 @Service
-
 public class OrderService {
-
-private PaymentService paymentService;
-
-@Autowired
-
-public void setPaymentService(PaymentService paymentService) {
-
-this.paymentService = paymentService;
-
+    private PaymentService paymentService;
+    @Autowired
+    public void setPaymentService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 }
-
-}
-
 ```
 
-🟢 Think: "You can set or replace the dependency later."
-
 **C. Field Injection (Not recommended for new projects)**
-
 - Uses @Autowired directly on the field.
 - Easy to use, but hard to test.
 
+**🟠 Think: "Quick to use, but not flexible for testing."**
 ```java
-
 @Service
-
 public class OrderService {
-
-@Autowired
-
-private PaymentService paymentService;
-
+    @Autowired
+    private PaymentService paymentService;
 }
-
 ```
 
-🟠 Think: "Quick to use, but not flexible for testing."
-
-**⚙️ 2️⃣ What is a Bean in Spring?**
+#### **What is a Bean in Spring?**
 
 A **Bean** is any object that is **managed by Spring's IoC (Inversion of Control) container**.  
 You can define a bean using:
+- `@Component`, `@Service`, `@Repository` (auto-detected)
+- or `@Bean` inside a `@Configuration` class.
 
-- @Component, @Service, @Repository (auto-detected)
-- or @Bean inside a @Configuration class.
-
-Example:
-
+**🟢 Think: "A bean is just a normal object, but Spring controls its creation and lifecycle."**
 ```java
-
 @Configuration
-
 public class AppConfig {
-
-@Bean
-
-public EmailService emailService() {
-
-return new EmailService();
-
+    @Bean
+    public EmailService emailService() {
+        return new EmailService();
+    }
 }
-
-}
-
 ```
 
-🟢 Think: "A bean is just a normal object, but Spring controls its creation and lifecycle."
-
-**🧱 3️⃣ Bean Scopes**
+#### **Bean Scopes**
 
 Bean scope defines **how long** and **how many instances** of a bean exist in the application.
 
@@ -601,138 +555,83 @@ Bean scope defines **how long** and **how many instances** of a bean exist in th
 | session | One instance per user session | For login/user-specific data |
 | application | One instance for entire web app | Rarely used |
 
-**Example:**
-
+**🟢 Think: "Scope controls how many copies of the bean exist."**
 ```java
-
 @Component
-
 @Scope("prototype")
-
 public class Task {
-
-public Task() {
-
-System.out.println("New Task created");
-
+    public Task() {
+        System.out.println("New Task created");
+    }
 }
-
-}
-
 ```
 
-🟢 Think: "Scope controls how many copies of the bean exist."
+#### **@Primary and @Qualifier**
 
-**⚙️ 4️⃣ @Primary and @Qualifier**
+Sometimes you have **multiple beans of the same type**. You can tell Spring which one to use.
 
-Sometimes you have **multiple beans of the same type**.  
-You can tell Spring which one to use.
-
-**Example using @Primary**
-
+**🟢 Think: "select primary beans - If you autowire PaymentService, Spring will inject the **PayPal bean** by default."**
 ```java
-
 @Configuration
-
 public class AppConfig {
+    @Primary
+    @Bean
+    public PaymentService paypal() {
+        return new PaypalService();
+    }
 
-@Primary
-
-@Bean
-
-public PaymentService paypal() {
-
-return new PaypalService();
-
+    @Bean
+    public PaymentService stripe() {
+        return new StripeService();
+    }
 }
-
-@Bean
-
-public PaymentService stripe() {
-
-return new StripeService();
-
-}
-
-}
-
 ```
 
-If you autowire PaymentService, Spring will inject the **PayPal bean** by default.
-
-**Example using @Qualifier**
-
+**🟢 Think: "Use @Primary for default, @Qualifier for specific choice."**
 ```java
-
 @Autowired
-
 @Qualifier("stripe")
-
 private PaymentService paymentService;
-
 ```
 
-🟢 Think: "Use @Primary for default, @Qualifier for specific choice."
+#### **Profiles in Spring Boot**
 
-**🧭 5️⃣ Profiles in Spring Boot**
-
-Profiles help you create **different configurations for different environments**, like:
-
+Profiles help you create **different configurations for different environments** like:
 - dev (for local development)
 - test (for QA/testing)
 - prod (for production)
 
 You can activate a profile via:
-
 - application.properties
 - spring.profiles.active=dev
 
-**Example:**
-
+**🟢 Think: "Switch configs automatically based on environment."**
 ```java
-
 @Configuration
-
 @Profile("dev")
-
 public class DevConfig {
-
-@Bean
-
-public DataSource devDataSource() {
-
-return new H2DataSource();
-
-}
-
+    @Bean
+    public DataSource devDataSource() {
+        return new H2DataSource();
+    }
 }
 
 @Configuration
-
 @Profile("prod")
-
 public class ProdConfig {
-
-@Bean
-
-public DataSource prodDataSource() {
-
-return new MySQLDataSource();
-
-}
-
+    @Bean
+    public DataSource prodDataSource() {
+        return new MySQLDataSource();
+    }
 }
 
 ```
 
-🟢 Think: "Switch configs automatically based on environment."
-
-**🌀 6️⃣ AOP (Aspect Oriented Programming)**
+#### **AOP (Aspect Oriented Programming)**
 
 AOP allows you to **add cross-cutting concerns** - logic that applies across many modules - without cluttering your business code.
 
 **Common Use Cases:**
-
 - Logging
 - Security checks
 - Transaction management
@@ -748,41 +647,24 @@ AOP allows you to **add cross-cutting concerns** - logic that applies across man
 | **Pointcut** | Expression to match join points | All methods in a package |
 | **Weaving** | Linking aspect with target object | Done automatically by Spring |
 
-**Example: Logging with AOP**
-
+**🟢 Think: "AOP lets you plug in logic (like logging or security) around your main code without touching it."**
 ```java
-
 @Aspect
-
 @Component
-
 public class LoggingAspect {
+    @Before("execution(\* com.example.service.\*.\*(..))")
+    public void beforeMethod() {
+        System.out.println("➡️ Before method execution");
+    }
 
-@Before("execution(\* com.example.service.\*.\*(..))")
-
-public void beforeMethod() {
-
-System.out.println("➡️ Before method execution");
-
+    @After("execution(\* com.example.service.\*.\*(..))")
+    public void afterMethod() {
+        System.out.println("✅ After method execution");
+    }
 }
-
-@After("execution(\* com.example.service.\*.\*(..))")
-
-public void afterMethod() {
-
-System.out.println("✅ After method execution");
-
-}
-
-}
-
 ```
 
-🟢 Think:
-
-"AOP lets you plug in logic (like logging or security) around your main code without touching it."
-
-**🧩 7️⃣ Types of Advice in AOP**
+#### **Types of Advice in AOP**
 
 | **Advice Type** | **When it Runs** | **Example Use** |
 | --- | --- | --- |
@@ -793,28 +675,18 @@ System.out.println("✅ After method execution");
 | @Around | Runs both before & after | Performance tracking, timing execution |
 
 **Example with @Around**
-
 ```java
-
 @Around("execution(\* com.example.service.\*.\*(..))")
-
 public Object measureTime(ProceedingJoinPoint joinPoint) throws Throwable {
-
-long start = System.currentTimeMillis();
-
-Object result = joinPoint.proceed(); // execute method
-
-long end = System.currentTimeMillis();
-
-System.out.println("Execution Time: " + (end - start) + " ms");
-
-return result;
-
+    long start = System.currentTimeMillis();
+    Object result = joinPoint.proceed(); // execute method
+    long end = System.currentTimeMillis();
+    System.out.println("Execution Time: " + (end - start) + " ms");
+    return result;
 }
-
 ```
 
-**✅ 8️⃣ Summary Quick Table**
+**✅ Summary Quick Table**
 
 | **Concept** | **Keyword** | **Purpose** |
 | --- | --- | --- |
