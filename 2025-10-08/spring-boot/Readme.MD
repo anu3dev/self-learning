@@ -1,6 +1,4 @@
-**Spring Boot Basics**
-
----
+## 🧩 Spring Boot Basics
 
 **What is Spring Boot and how is it different from the Spring Framework?**
 
@@ -12,7 +10,7 @@ Spring Boot is a lightweight extension of the Spring Framework that simplifies s
 
 Unlike plain Spring (where you manually configure XML files or annotations), Spring Boot reduces boilerplate through convention-over-configuration.
 
-→ This single file starts a full Spring app without XML.
+**→** This single file starts a full Spring app without XML.
 ```java
 @SpringBootApplication
 public class DemoApplication {
@@ -37,7 +35,7 @@ Key advantages include:
 - Easy integration with JPA, Security, Actuator, etc.
 - Ideal for microservices architecture
 
-→ Automatically adds Spring MVC + Tomcat.
+**→** Automatically adds Spring MVC + Tomcat.
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -49,7 +47,7 @@ Key advantages include:
 
 Spring Boot uses Auto-Configuration classes (from spring-boot-autoconfigure) to detect available libraries and configure required beans automatically, unless overridden manually.
 
-→ Adding JPA starter:
+**→** Adding JPA starter:
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -68,7 +66,7 @@ Both store externalized configuration, but syntax differs:
 - .properties → flat key-value pairs
 - .yml → hierarchical, cleaner structure
 
-→ Example - application.properties
+**→** Example - application.properties
 ```properties
 server.port=8081
 spring.datasource.url=jdbc:mysql://localhost:3306/testdb
@@ -76,7 +74,7 @@ spring.datasource.username=root
 spring.datasource.password=root
 ```
 
-→ Example - application.yml
+**→** Example - application.yml
 ```yml
 server:
     port: 8081
@@ -87,18 +85,20 @@ spring:
         password: root
 ```
 
-→ You can change the port via application.properties configuration.
+**→** You can change the port via application.properties configuration.
 ```properties
 server.port=9090
 ```
 
-→ You can change the port via application.yml configuration.
+**→** You can change the port via application.yml configuration.
 ```yml
 server:
     port: 9090
 ```
 
-**Spring Boot Annotations**
+---
+
+**🧩 Spring Boot Annotations**
 
 ---
 
