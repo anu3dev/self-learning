@@ -1,4 +1,4 @@
-### 🧩 Spring Boot Basics
+### 🧩 Spring Boot - Basics
 ---
 
 #### **Q. What is Spring Boot and how is it different from the Spring Framework?**
@@ -96,7 +96,7 @@ server:
 ```
 
 ---
-### 🧩 Spring Boot Annotations
+### 🧩 Spring Boot - Annotations
 ---
 
 #### **@SpringBootApplication**
@@ -461,7 +461,7 @@ public void updateUser(User user) {
 | **Scheduler** | @EnableScheduling, @Scheduled | Background tasks |
 
 ---
-### **🧩 Spring Boot - Dependency Injection (DI), Bean Scopes, Profiles & AOP**
+### 🧩 Spring Boot - Dependency Injection (DI)
 ---
 
 #### **Q. What is Dependency Injection (DI)?**
@@ -524,6 +524,10 @@ public class OrderService {
     private PaymentService paymentService;
 }
 ```
+
+---
+### 🧩 Spring Boot - Bean Scopes
+---
 
 #### **What is a Bean in Spring?**
 
@@ -594,6 +598,10 @@ public class AppConfig {
 private PaymentService paymentService;
 ```
 
+---
+### 🧩 Spring Boot - Profiles
+---
+
 #### **Profiles in Spring Boot**
 
 Profiles help you create **different configurations for different environments** like:
@@ -626,6 +634,10 @@ public class ProdConfig {
 }
 
 ```
+
+---
+### 🧩 Spring Boot - AOP
+---
 
 #### **AOP (Aspect Oriented Programming)**
 
@@ -695,3 +707,7 @@ public Object measureTime(ProceedingJoinPoint joinPoint) throws Throwable {
 | Primary Bean | @Primary | Choose default bean |
 | Profiles | @Profile("dev") | Load environment-specific beans |
 | AOP | @Aspect, @Before, @Around | Add cross-cutting logic cleanly |
+
+---
+### **🧩 Spring Boot - REST API & Web Layer**
+---
