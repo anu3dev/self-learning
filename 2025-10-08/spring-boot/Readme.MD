@@ -1,7 +1,7 @@
 ### 🧩 Spring Boot Basics
 ---
 
-**Q. What is Spring Boot and how is it different from the Spring Framework?**
+#### **Q. What is Spring Boot and how is it different from the Spring Framework?**
 
 Spring Boot is a lightweight extension of the Spring Framework that simplifies setup by providing:
 - Auto-configuration
@@ -42,7 +42,7 @@ Key advantages include:
 </dependency>
 ```
 
-**Q. How does Spring Boot automatically configure beans?**
+#### **Q. How does Spring Boot automatically configure beans?**
 
 Spring Boot uses Auto-Configuration classes (from spring-boot-autoconfigure) to detect available libraries and configure required beans automatically, unless overridden manually.
 
@@ -59,7 +59,7 @@ Auto-creates:
 - EntityManagerFactory
 - JpaTransactionManager
 
-**Q. What is the difference between application.properties and application.yml?**
+#### **Q. What is the difference between application.properties and application.yml?**
 
 Both store externalized configuration, but syntax differs:
 - .properties → flat key-value pairs
@@ -96,19 +96,19 @@ server:
 ```
 
 ---
-### 🧩 Spring Boot Annotations**
+### 🧩 Spring Boot Annotations
 ---
 
-**01. @SpringBootApplication**
+#### **@SpringBootApplication**
 
-This is the **main entry point** for any Spring Boot app.  
+This is the `main entry point` for any Spring Boot app.  
 It automatically sets up configuration, scans components, and starts the app.  
 It's actually a shortcut for three annotations:
-
 - `@Configuration` → marks this class as a configuration source
 - `@EnableAutoConfiguration` → enables auto bean setup
 - `@ComponentScan` → scans your package for components like @Service, @Repository, etc.
 
+**🟢 Think of it as: "Make this class my Spring Boot starter."**
 ```java
 @SpringBootApplication
 public class MyApp {
@@ -118,13 +118,12 @@ public class MyApp {
 }
 ```
 
-🟢 Think of it as: "Make this class my Spring Boot starter."
-
-**.02 @Component**
+#### **@Component**
 
 Marks a **general-purpose bean** that Spring should manage automatically.  
 Spring creates its object and injects it wherever needed.
 
+**🟢 Think of it as: "Hey Spring, please manage this class as a bean."**
 ```java
 @Component
 public class EmailService {
@@ -134,13 +133,12 @@ public class EmailService {
 }
 ```
 
-🟢 Think of it as: "Hey Spring, please manage this class as a bean."
-
-**3️⃣ @Service**
+#### **@Service**
 
 Same as @Component, but used for **business logic or service layer** classes.  
 It improves code readability and makes intent clear.
 
+**🟢 Think: "This class contains core business logic."**
 ```java
 @Service
 public class PaymentService {
@@ -150,447 +148,307 @@ public class PaymentService {
 }
 ```
 
-🟢 Think: "This class contains core business logic."
-
-**4️⃣ @Repository**
+#### **@Repository**
 
 Used on **data access** or **DAO layer** classes.  
 Spring also automatically converts any database exception into a Spring-friendly one (like DataAccessException).
 
+**🟢 Think: "This class talks to the database."**
 ```java
-
 @Repository
-
 public class UserRepository {
-
-// Database operations
-
+    // Database operations
 }
-
 ```
 
-🟢 Think: "This class talks to the database."
-
-**5️⃣ @Controller**
+#### **@Controller**
 
 Marks a class as a **Spring MVC web controller**.  
 It handles incoming HTTP requests and returns a view (like an HTML page).
 
+**🟢 Think: "This class handles web requests and returns pages."**
 ```java
-
 @Controller
-
 public class WebController {
-
-@GetMapping("/home")
-
-public String home() {
-
-return "index"; // Returns view name
-
+    @GetMapping("/home")
+    public String home() {
+        return "index"; // Returns view name
+    }
 }
-
-}
-
 ```
 
-🟢 Think: "This class handles web requests and returns pages."
-
-**6️⃣ @RestController**
+#### **@RestController**
 
 Combines @Controller and @ResponseBody.  
 Used for **REST APIs** - returns JSON or XML instead of HTML.
 
+**🟢 Think: "This controller sends data (JSON), not HTML pages."**
 ```java
-
 @RestController
-
 public class UserController {
-
-@GetMapping("/user")
-
-public String getUser() {
-
-return "Anurag Kumar";
-
+    @GetMapping("/user")
+    public String getUser() {
+        return "Anurag Kumar";
+    }
 }
-
-}
-
 ```
 
-🟢 Think: "This controller sends data (JSON), not HTML pages."
-
-**7️⃣ @RequestMapping**
+#### **@RequestMapping**
 
 Maps a **URL** to a controller method or class.  
 You can specify method type (GET, POST, etc.), consumes, and produces.
 
+**🟢 Think: "When this URL is hit, run this method."**
 ```java
-
 @RequestMapping(value = "/hello", method = RequestMethod.GET)
-
 public String sayHello() {
-
-return "Hello Spring Boot";
-
+    return "Hello Spring Boot";
 }
-
 ```
 
-🟢 Think: "When this URL is hit, run this method."
-
-**8️⃣ @GetMapping / @PostMapping / @PutMapping / @DeleteMapping**
+#### **@GetMapping / @PostMapping / @PutMapping / @DeleteMapping**
 
 These are **shortcuts for @RequestMapping** for each HTTP method.  
 They make code cleaner and more readable.
 
+**🟢 Think: "GET = read, POST = create, PUT = update, DELETE = remove."**
 ```java
-
 @GetMapping("/users")
-
-public List&lt;User&gt; getUsers() { ... }
+public List<User> getUsers() {
+    // logic
+}
 
 @PostMapping("/users")
-
-public User addUser(@RequestBody User user) { ... }
-
+public User addUser(@RequestBody User user) { 
+    // logic
+ }
 ```
 
-🟢 Think: "GET = read, POST = create, PUT = update, DELETE = remove."
-
-**9️⃣ @PathVariable**
+#### **@PathVariable**
 
 Used to extract **values from the URL path**.
 
+**🟢 Think: "Grab part of the URL and use it as input."**
 ```java
-
 @GetMapping("/users/{id}")
-
 public String getUser(@PathVariable int id) {
-
-return "User ID: " + id;
-
+    return "User ID: " + id;
 }
-
 ```
 
-🟢 Think: "Grab part of the URL and use it as input."
+#### **@RequestParam**
 
-**🔟 @RequestParam**
+Used to get **query parameters** from the URL.  (Example: /search?keyword=java)
 
-Used to get **query parameters** from the URL.  
-(Example: /search?keyword=java)
-
+**🟢 Think: "Grab something from the ? query part of the URL."**
 ```java
-
 @GetMapping("/search")
-
 public String search(@RequestParam String keyword) {
-
-return "Searching for: " + keyword;
-
+    return "Searching for: " + keyword;
 }
-
 ```
 
-🟢 Think: "Grab something from the ?query part of the URL."
-
-**11️⃣ @RequestBody**
+#### **@RequestBody**
 
 Takes JSON or XML from the **HTTP request body** and converts it to a Java object automatically.
 
+**🟢 Think: "Convert JSON to Java object automatically."**
 ```java
-
 @PostMapping("/addUser")
-
 public String addUser(@RequestBody User user) {
-
-return "Added user: " + user.getName();
-
+    return "Added user: " + user.getName();
 }
-
 ```
 
-🟢 Think: "Convert JSON to Java object automatically."
-
-**12️⃣ @ResponseBody**
+#### **@ResponseBody**
 
 Sends the return value directly to the HTTP response body, instead of rendering a view.
 
+**🟢 Think: "Return the data directly as output."**
 ```java
-
 @ResponseBody
-
 @GetMapping("/msg")
-
 public String message() {
-
-return "Hello JSON";
-
+    return "Hello JSON";
 }
-
 ```
 
-🟢 Think: "Return the data directly as output."
+#### **@Autowired**
 
-**13️⃣ @Autowired**
+Used for **dependency injection**. Spring automatically finds and injects the required bean.
 
-Used for **dependency injection**.  
-Spring automatically finds and injects the required bean.
-
+**🟢 Think: "Inject this bean automatically."**
 ```java
-
 @Service
-
 public class OrderService {
-
-@Autowired
-
-private PaymentService paymentService;
-
+    @Autowired
+    private PaymentService paymentService;
 }
-
 ```
 
-🟢 Think: "Inject this bean automatically."
-
-**14️⃣ @Qualifier**
+#### **@Qualifier**
 
 When there are multiple beans of the same type, @Qualifier tells Spring which one to use.
 
+**🟢 Think: "Use this specific bean among many."**
 ```java
-
 @Autowired
-
 @Qualifier("emailService")
-
 private NotificationService notificationService;
-
 ```
 
-🟢 Think: "Use this specific bean among many."
-
-**15️⃣ @Value**
+#### **@Value**
 
 Injects values directly from application.properties or application.yml.
 
+**🟢 Think: "Read a value from configuration file."**
 ```java
-
 @Value("\${server.port}")
-
+private int port;
 ```
 
-private int port;
-
-🟢 Think: "Read a value from configuration file."
-
-**16️⃣ @Configuration**
+#### **@Configuration**
 
 Marks a class that defines beans manually.  
 Spring treats it as a **Java-based configuration** file (replacement of XML).
 
+**🟢 Think: "This class contains bean definitions."**
 ```java
-
 @Configuration
-
 public class AppConfig {
-
-@Bean
-
-public EmailService emailService() {
-
-return new EmailService();
-
+    @Bean
+    public EmailService emailService() {
+        return new EmailService();
+    }
 }
-
-}
-
 ```
 
-🟢 Think: "This class contains bean definitions."
-
-**17️⃣ @Bean**
+#### **@Bean**
 
 Used inside a @Configuration class to define a bean.
 
+**🟢 Think: "Manually create and manage this bean."**
 ```java
-
 @Bean
-
 public RestTemplate restTemplate() {
-
-return new RestTemplate();
-
+    return new RestTemplate();
 }
-
 ```
 
-🟢 Think: "Manually create and manage this bean."
+#### **@Scope**
 
-**18️⃣ @Scope**
-
-Defines how many instances of a bean should exist.  
-Common scopes:
-
+Defines how many instances of a bean should exist. Common scopes:
 - singleton → only one instance (default)
 - prototype → new instance every time
 - request, session → for web contexts
 
+**🟢 Think: "Control how many objects Spring should make."**
 ```java
-
 @Scope("prototype")
-
 @Bean
-
 public User userBean() {
-
-return new User();
-
+    return new User();
 }
-
 ```
 
-🟢 Think: "Control how many objects Spring should make."
-
-**19️⃣ @Primary**
+#### **@Primary**
 
 If there are multiple beans of the same type, the one marked with @Primary is preferred.
 
+**🟢 Think: "Use this bean as the default."**
 ```java
-
 @Primary
-
 @Bean
-
 public PaymentService paypalService() {
-
-return new PaypalService();
-
+    return new PaypalService();
 }
-
 ```
 
-🟢 Think: "Use this bean as the default."
-
-**20️⃣ @Conditional**
+#### **@Conditional**
 
 Used to create beans only if a condition is true (like a property is enabled).
 
+**🟢 Think: "Create this bean only when condition matches."**
 ```java
-
 @ConditionalOnProperty(name = "app.feature.enabled", havingValue = "true")
-
 @Bean
-
 public FeatureService featureService() {
-
-return new FeatureService();
-
+    return new FeatureService();
 }
-
 ```
 
-🟢 Think: "Create this bean only when condition matches."
-
-**21️⃣ @EnableAutoConfiguration**
+#### **@EnableAutoConfiguration**
 
 Allows Spring Boot to automatically configure beans based on dependencies present in the classpath.
 
+**🟢 Think: "Spring Boot, please auto-configure things for me."**
 ```java
-
 @EnableAutoConfiguration
-
-public class MyApp { }
-
+public class MyApp {
+    // code
+}
 ```
 
-🟢 Think: "Spring Boot, please auto-configure things for me."
-
-**22️⃣ @ComponentScan**
+#### **@ComponentScan**
 
 Tells Spring which packages to scan for components.
 
+**🟢 Think: "Look for beans in this package."**
 ```java
-
-@ComponentScan("com.example.polling")
-
-public class PollingApp { }
-
+@ComponentScan("com.example.demo")
+public class PollingApp {
+    // code
+}
 ```
 
-🟢 Think: "Look for beans in this package."
-
-**23️⃣ @Profile**
+#### **@Profile**
 
 Used to load beans only in specific environments like dev, test, or prod.
 
+**🟢 Think: "Activate this bean only in specific environment."**
 ```java
-
 @Profile("dev")
-
 @Bean
-
 public DataSource devDataSource() {
-
-return new H2DataSource();
-
+    return new H2DataSource();
 }
-
 ```
 
-🟢 Think: "Activate this bean only in specific environment."
-
-**24️⃣ @EnableScheduling / @Scheduled**
+#### **@EnableScheduling / @Scheduled**
 
 Used for scheduled jobs or cron tasks (like auto email or cleanup jobs).
 
+**🟢 Think: "Run this method automatically at intervals."**
 ```java
-
 @EnableScheduling
-
 @SpringBootApplication
-
-public class MyApp { }
+public class MyApp {
+    // code
+}
 
 @Component
-
 public class MyScheduler {
-
-@Scheduled(fixedRate = 5000)
-
-public void printMsg() {
-
-System.out.println("Runs every 5 seconds");
-
+    @Scheduled(fixedRate = 5000)
+    public void printMsg() {
+        System.out.println("Runs every 5 seconds");
+    }
 }
-
-}
-
 ```
 
-🟢 Think: "Run this method automatically at intervals."
-
-**25️⃣ @Transactional**
+#### **@Transactional**
 
 Used to make a method **transactional** - if an error occurs, changes roll back automatically.  
 Perfect for database operations.
 
+**🟢 Think: "If anything fails, undo all DB changes."**
 ```java
-
 @Transactional
-
 public void updateUser(User user) {
-
-userRepository.save(user);
-
+    userRepository.save(user);
 }
-
 ```
 
-🟢 Think: "If anything fails, undo all DB changes."
-
-**✅ Quick Summary Table**
+**✅ Quick Summary Table:**
 
 | **Layer** | **Common Annotations** | **Meaning** |
 | --- | --- | --- |
@@ -602,11 +460,11 @@ userRepository.save(user);
 | **Profiles & Conditions** | @Profile, @Conditional, @EnableAutoConfiguration | Environment-specific logic |
 | **Scheduler** | @EnableScheduling, @Scheduled | Background tasks |
 
-.
+---
+### **🧩 Spring Boot - Dependency Injection (DI), Bean Scopes, Profiles & AOP**
+---
 
-**🧩 3. Spring Boot - Dependency Injection (DI), Bean Scopes, Profiles & AOP**
-
-**⚙️ 1️⃣ What is Dependency Injection (DI)?**
+#### **Q. What is Dependency Injection (DI)?**
 
 **Definition:**  
 Dependency Injection means **Spring automatically provides required objects (dependencies)** to a class, instead of you manually creating them using new.
