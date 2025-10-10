@@ -1,4 +1,6 @@
-# 🧩 Spring Boot Basics
+### 🧩 Spring Boot Basics
+
+---
 
 **What is Spring Boot and how is it different from the Spring Framework?**
 
