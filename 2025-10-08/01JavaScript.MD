@@ -87,6 +87,7 @@ However, browsers (and Node.js) provide background APIs that handle asynchronous
     - When a function is called → it’s pushed to the stack.
     - When it returns → it’s popped off the stack.
     - If stack is full, new tasks must wait.
+
     ```js
     function greet() {
         console.log("Hello");
