@@ -8,8 +8,10 @@
 1. Event loop, call stack, microtasks/macrotasks
 
 
-    #### 🧠 Concept
-    JavaScript is single-threaded. The **call stack** executes synchronous code.  
+
+
+    #### concept
+    JavaScript is single-threaded. The **call stack** executes synchronous code line by line.  
     **Async tasks** (Promises, timers, I/O) are delegated to the Web APIs and queued back in:
     - **Microtask queue** → `Promise.then`, `MutationObserver`
     - **Macrotask queue** → `setTimeout`, `setInterval`, `setImmediate`
@@ -19,20 +21,184 @@
     2. If yes → push next microtask(s).  
     3. When microtasks finish → take one macrotask → repeat.
 
-    #### 🧩 Example Code
+    #### example code
     ```js
     console.log("start");
 
     setTimeout(() => console.log("timeout"), 0);
 
     Promise.resolve()
-    .then(() => console.log("promise1"))
-    .then(() => console.log("promise2"));
+        .then(() => console.log("promise1"))
+        .then(() => console.log("promise2"));
 
     console.log("end");
-    ````
+    ```
+
+    #### output
+    ```json
+    start
+    end
+    promise1
+    promis2
+    timeout
+    ```
+
+
+
+
+    #### concept
+    **async/await** is syntactic sugar for Promises. When you await something, JavaScript pauses that async function at that point, allowing other tasks (in the event loop) to run. When the awaited Promise resolves, the async function resumes in a new microtask.
+
+    #### example code
+    ```js
+    console.log("A");
+
+    setTimeout(() => console.log("B (timeout)"), 0);
+
+    (async function() {
+        console.log("C (start async)");
+        await Promise.resolve();
+        console.log("D (after await)");
+    })();
+
+    console.log("E");
+    ```
+
+    #### output
+    ```json
+    A
+    C (start async)
+    E
+    D (after await)
+    B (timeout)
+    ```
     
-    
+
+
+
+    #### concept
+    When JavaScript runs, it creates an **execution context** for each scope and pushes it onto the **call stack**.  
+    Every context has two phases:
+
+    1. **Creation Phase (Hoisting)**  
+    - `var` → hoisted & initialized as `undefined`  
+    - `let` / `const` → hoisted but not initialized (Temporal Dead Zone)  
+    - **Function declarations** → hoisted with full definition  
+    - **Function expressions / arrow functions** → treated as variables (undefined until assigned)
+
+    2. **Execution Phase**  
+    - Code executes line-by-line  
+    - Variables get assigned values  
+    - Functions execute → new execution context pushed to stack  
+
+    #### example code
+    ```js
+    sayHello();           // ✅ works (function hoisted)
+    console.log(name);    // ❌ undefined (var hoisted)
+    console.log(age);     // ❌ ReferenceError (TDZ)
+
+    var name = "Anurag";
+    let age = 30;
+
+    function sayHello() {
+        console.log("Hello from function declaration");
+    }
+
+    var sayHi = function() {
+    console.log("Hi from function expression");
+    };
+
+    sayHi(); // ✅ works after initialization
+    ```
+
+    #### output
+    ```json
+    Hello from function declaration
+    undefined
+    ReferenceError
+    Hi from function expression
+    ```
+
+    - During creation, JS reserves memory for all variables & function declarations.
+    - Function declarations are hoisted with body → can be called before definition.
+    - Variables declared with var exist but are undefined until assigned.
+    - let & const stay in TDZ until their line executes.
+    - Function expressions i.e. arrow function act like variables → not callable before assignment.
+    - Each function call creates a new stack frame (own local variables, arguments).
+    - Once the function returns, its frame is popped from the call stack.
+
+
+
+
+    #### concept
+    A **closure** is created when an inner function **remembers and accesses variables** from its outer (lexical) scope **even after** that outer function has finished executing.
+
+    Every time a function is pushed on the **call stack**, a new **lexical environment** is created.  
+    When the outer function finishes and is popped from the stack, the inner function keeps a **reference (not copy)** of the outer variables through the closure.
+
+    #### 🧩 example code
+    ```js
+    function outer() {
+    let counter = 0;
+
+    function inner() {
+        counter++;
+        console.log(counter);
+    }
+
+    return inner;
+    }
+
+    const increment = outer(); // outer() runs and returns inner()
+
+    increment(); // 1
+    increment(); // 2
+    increment(); // 3
+    ```
+
+
+
+
+    #### concept
+    In JavaScript, **objects inherit properties and methods** from other objects via the **prototype chain**.  
+    Every object has an internal reference called `[[Prototype]]` (accessible as `__proto__`), which points to another object.  
+    If a property or method isn’t found on the current object, JS looks it up the chain until it reaches `Object.prototype`.
+
+    #### 🧩 Example Code
+    ```js
+    const person = {
+    greet() {
+        console.log(`Hello, I'm ${this.name}`);
+    }
+    };
+
+    const user = Object.create(person);
+    user.name = "Anurag";
+
+    user.greet(); // ✅ found in prototype chain -> Hello, I'm Anurag
+    console.log(user.__proto__ === person); // true
+    ```
+
+
+
+
+    ### ES6 example
+    ```js
+    class Animal {
+        speak() { console.log("Animal sound"); }
+    }
+
+    class Dog extends Animal {
+        speak() { console.log("Bark"); }
+    }
+
+    const d = new Dog();
+    d.speak(); // Bark
+    ```
+
+
+
+
 2. var / let / const + hoisting  
 3. Closures and use cases  
 4. Prototype inheritance  
