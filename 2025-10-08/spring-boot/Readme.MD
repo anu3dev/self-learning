@@ -709,5 +709,110 @@ public Object measureTime(ProceedingJoinPoint joinPoint) throws Throwable {
 | AOP | @Aspect, @Before, @Around | Add cross-cutting logic cleanly |
 
 ---
-### **🧩 Spring Boot - REST API & Web Layer**
+### **🧩 Spring Boot - Exception Handling & ResponseEntity**
 ---
+
+- `@ExceptionHandler` - Used to handle exceptions within a specific controller.
+```java
+@ExceptionHandler(IllegalArgumentException.class)
+public ResponseEntity<String> handleInvalidId(IllegalArgumentException ex) {
+    return ResponseEntity.badRequest().body(ex.getMessage());
+}
+```
+
+- `@ControllerAdvice` - Used for global exception handling across all controllers.
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleAll(Exception ex) {
+        return ResponseEntity.internalServerError().body("Error: " + ex.getMessa());
+    }
+}
+```
+
+- `Custom ErrorResponse` - Use a model class for consistent error structure in JSON.
+```java
+public class ErrorResponse {
+    private String message;
+    private LocalDateTime time = LocalDateTime.now();
+}
+
+@ExceptionHandler(ResourceNotFoundException.class)
+public ResponseEntity<ErrorResponse> notFound(ResourceNotFoundException ex) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                         .body(new ErrorResponse(ex.getMessage()));
+}
+```
+
+- `ResponseEntity` - Represents the entire HTTP response (status + body + headers).
+
+```java
+@GetMapping("/hello")
+public ResponseEntity<String> hello() {
+    return new ResponseEntity<>("Hello World", HttpStatus.OK);
+}
+
+@GetMapping("/user/{id}")
+public ResponseEntity<User> getUser(@PathVariable int id) {
+    User user = userService.findUser(id);
+    return (user != null) ? ResponseEntity.ok(user)
+                          : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+}
+
+@GetMapping("/download")
+public ResponseEntity<String> download() {
+    HttpHeaders h = new HttpHeaders();
+    h.add("File-Name", "report.pdf");
+    return ResponseEntity.ok().headers(h).body("File ready");
+}
+```
+
+---
+### **🧩 Spring Boot - Spring Data JPA**
+---
+
+Spring Data JPA is a part of Spring Boot that simplifies database operations.
+
+**🟢 Spring auto-creates CRUD methods like save(), findAll(), deleteById(), etc.**
+```java
+public interface UserRepository extends JpaRepository<User, Long> {}
+```
+
+**CrudRepository vs JpaRepository vs PagingAndSortingRepository** - Usually, use JpaRepository — it includes everything.
+
+| **Interface** | **Extends** | **Purpose** | **Example** |
+| --- | --- | --- | --- |
+| **CrudRepository** | **\-** | **Basic CRUD (Create, Read, Update, Delete)** | **save(), findById(), deleteById()** |
+| **PagingAndSortingRepository** | **CrudRepository** | **Adds pagination & sorting** | **findAll(Pageable p)** |
+| **JpaRepository** | **PagingAndSortingRepository** | **Full JPA features (batch ops, flush, etc.)** | **findAll(), saveAll(), getOne()** |
+
+**Spring can derive queries automatically from method names — no SQL needed!**
+```java
+List<User> findByEmail(String email);
+List<User> findByAgeGreaterThan(int age);
+List<User> findByNameContaining(String keyword);
+```
+
+**Use @Query when you need custom SQL or JPQL**
+```java
+@Query("SELECT u FROM User u WHERE u.email = :email")
+User getUserByEmail(@Param("email") String email);
+```
+
+**If any exception occurs inside @Transactional, all DB changes are rolled back.**
+```java
+@Service
+public class UserService {
+    @Transactional
+    public void registerUser(User user) {
+        userRepo.save(user);
+        emailService.sendWelcomeEmail(user);
+    }
+}
+```
+
+---
+### **🧩 Spring Boot - Security**
+---
+
