@@ -107,7 +107,7 @@ However, browsers (and Node.js) provide background APIs that handle asynchronous
     - If yes → push next microtask(s).  
     - When microtasks finish → take one macrotask → repeat.
 
-**Async tasks** (Promises, timers, I/O) are delegated to the Web APIs and queued back in:
+    **Async tasks** (Promises, timers, I/O) are delegated to the Web APIs and queued back in:
     - **Microtask queue** → `Promise.then`, `MutationObserver`
     - **Macrotask queue** → `setTimeout`, `setInterval`, `setImmediate`
 
