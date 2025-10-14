@@ -5,7 +5,30 @@
 <details>
 <summary> 🟩 JavaScript </summary>
 
-1. Event loop, call stack, microtasks/macrotasks  
+1. Event loop, call stack, microtasks/macrotasks
+    #### 🧠 Concept
+    JavaScript is single-threaded. The **call stack** executes synchronous code.  
+    **Async tasks** (Promises, timers, I/O) are delegated to the Web APIs and queued back in:
+    - **Microtask queue** → `Promise.then`, `MutationObserver`
+    - **Macrotask queue** → `setTimeout`, `setInterval`, `setImmediate`
+
+    The **event loop** constantly checks:
+    1. Is the call stack empty?  
+    2. If yes → push next microtask(s).  
+    3. When microtasks finish → take one macrotask → repeat.
+
+    #### 🧩 Example Code
+    ```js
+    console.log("start");
+
+    setTimeout(() => console.log("timeout"), 0);
+
+    Promise.resolve()
+    .then(() => console.log("promise1"))
+    .then(() => console.log("promise2"));
+
+    console.log("end");
+    ````
 2. var / let / const + hoisting  
 3. Closures and use cases  
 4. Prototype inheritance  
