@@ -6,6 +6,8 @@
 <summary> 🟩 JavaScript </summary>
 
 1. Event loop, call stack, microtasks/macrotasks
+
+
     #### 🧠 Concept
     JavaScript is single-threaded. The **call stack** executes synchronous code.  
     **Async tasks** (Promises, timers, I/O) are delegated to the Web APIs and queued back in:
@@ -29,6 +31,8 @@
 
     console.log("end");
     ````
+    
+    
 2. var / let / const + hoisting  
 3. Closures and use cases  
 4. Prototype inheritance  
