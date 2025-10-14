@@ -163,10 +163,6 @@
 <summary>🟩 Java </summary>
 
 1. JVM / JRE / JDK
-    - hellooooo
-    ```javascript
-    console.log("hello)
-    ```
 2. Classloader hierarchy  
 3. OOP pillars  
 4. Abstract vs interface  
