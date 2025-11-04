@@ -1,11 +1,13 @@
 ###
 
-- using abstract class
-```typescript
-// Abstraction in TypeScript and Java is conceptually the same
-// Abstraction is hiding internal details and exposing only what’s necessary
-// it can be achieved using Abstract Classes(partial abstraction) and Interfaces(full abstraction)
+- Abstraction in TypeScript and Java is conceptually the same, abstraction is hiding internal details and exposing only what’s necessary, it can be achieved using Abstract Classes(partial abstraction) and Interfaces(full abstraction)
 
+
+####
+<details>
+<summary> 🟩 abstract class in typescript </summary>
+
+```typescript
 abstract class Vehicle {
   // abstract method → no body, must be implemented by subclass
   abstract start(): void;
@@ -27,7 +29,13 @@ myCar.start(); // ✅ "Car started with key or button."
 myCar.stop();  // ✅ "Vehicle stopped."
 ```
 
-- using interface
+</details>
+
+
+####
+<details>
+<summary> 🟩 interface in typescript </summary>
+
 ```typescript
 interface PaymentGateway {
   makePayment(amount: number): void;
@@ -42,3 +50,5 @@ class PayPal implements PaymentGateway {
 const payment = new PayPal();
 payment.makePayment(100); // ✅ "Paid $100 using PayPal."
 ```
+
+</details>

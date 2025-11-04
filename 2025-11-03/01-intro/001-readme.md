@@ -1,4 +1,8 @@
-### into -
+### into
+
+####
+<details>
+<summary> 🟩 about me </summary>
 
 - My name is Anurag and I am working as Tech lead with Wipro, I have joined Wipro on June 2021 and since then I am working for US bank, in March 2023, I have travelled to Minneapolis and since then I am leading UI team for onboarding project with US bank.
 
@@ -11,3 +15,6 @@
 - I lead onboarding team to multiple org level migrations like state farm, enward jones, union bank, peru etc.
 
 - my role is to handle merge request, helping product owner in translating business requirements to technical stories, resolving technical queries. Also leading monthly prod deployment and log monitoring.
+
+</details>
+

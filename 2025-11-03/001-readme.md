@@ -1,6 +1,4 @@
-### last time revesion.
-
-#### javascript
+### javascript
 
 ####
 <details>
@@ -12,5 +10,5 @@ const {scrollTop, scrollHeight, clientHeight} = document.documentElement
 
 </details>
 
-#### java
+
 
