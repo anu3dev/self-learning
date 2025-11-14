@@ -9,6 +9,3 @@ const {scrollTop, scrollHeight, clientHeight} = document.documentElement
 ```
 
 </details>
-
-
-

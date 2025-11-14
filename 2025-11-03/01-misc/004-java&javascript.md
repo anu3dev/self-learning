@@ -87,6 +87,7 @@
             - Collections (List, Map, Set)
 </details>
 
+####
 <summary>🟩 Closure in JavaScript and Encapsulation in Java</summary>
 
 - A closure in JavaScript is a function that remembers the variables from its outer scope even after that outer function has finished executing. A closure is formed when:
@@ -160,6 +161,7 @@ console.log(fn2.getValue()) // 3
 
 </details>
 
+####
 <summary>🟩 Async in JavaScript? and in Java</summary>
 
 - A Promise is an object in JavaScript that represents the result of an asynchronous operation that will complete in the future. It can be in one of three states:
