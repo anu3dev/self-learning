@@ -240,6 +240,182 @@ public class DataService {
 
 ####
 <details>
+<summary> 🟩 What is Client-Side Rendering (CSR)? </summary>
+
+- Client-Side Rendering means:
+    - The browser (client) downloads a mostly empty HTML page.
+    - Then it downloads JavaScript.
+    - The JavaScript builds the UI in the browser.
+- How it works
+    - Browser loads index.html (usually empty <div id="root"></div>).
+    - Browser downloads JS bundle.
+    - React/Vue/Angular builds the UI on the client.
+- Pros
+    - Very interactive, dynamic UI
+    - Fast navigation after first load
+    - Good for dashboards, SPAs
+- Cons
+    - Slow first page load (JS must download first)
+    - Bad for SEO
+    - Not ideal for slow devices (heavy JS)
+
+</details>
+
+####
+<details>
+<summary> 🟩 What is Server-Side Rendering (SSR)? </summary>
+
+- Server-Side Rendering means:
+    - HTML is generated on the server.
+    - Browser receives fully rendered HTML, then JS hydrates it.
+- How it works
+    - User requests a page.
+    - Server (Node.js in case of React/Next.js) renders HTML on the server.
+    - Browser receives ready-made HTML → fast first load.
+    - JS loads to add interactivity (hydration).
+- Pros
+    - Fast first page load
+    - Great for SEO
+    - Good for marketing pages, blogs, ecommerce, banking
+- Cons
+    - Requires a server (Node.js runtime)
+    - More expensive hosting
+    - More complex build & deployment
+
+</details>
+
+####
+<details>
+<summary> 🟩 What is an S3 Bucket? </summary>
+
+- An Amazon S3 Bucket is:
+    - A storage service on AWS
+    - Used to host static files (HTML, CSS, JS, images, videos)
+    - Often used for static website hosting
+- What S3 CAN host
+    - Static React/Vite builds
+    - HTML/CSS/JS
+    - Images/videos
+    - Static websites
+- What S3 CANNOT host
+    - No server-side code
+    - No Node.js
+    - No backend rendering
+    - No API logic
+</details>
+
+####
+<details>
+<summary> 🟩 SEO implementation </summary>
+
+```html
+<Head>
+    <title>SEO Demo Page - Learn How SEO Tags Are Handled</title>
+    <meta name="description" content="This page demonstrates how SEO tags are handled in a Next.js app." />
+    <meta name="keywords" content="SEO, Next.js, SEO tags, meta tags, Open Graph" />
+    <meta name="robots" content="index, follow" />
+        
+    {/* Open Graph Tags */}
+    <meta property="og:title" content="SEO Demo Page - Learn How SEO Tags Are Handled" />
+    <meta property="og:description" content="See how Next.js handles SEO tags with dynamic content!" />
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png" />
+    <meta property="og:url" content="http://localhost:3000/seo-demo" />
+
+    {/* Twitter Card Tags */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SEO Demo Page - Learn How SEO Tags Are Handled" />
+    <meta name="twitter:description" content="An example page to show how SEO tags are handled in Next.js." />
+    <meta name="twitter:image" content="https://via.placeholder.com/1200x630.png" />
+        
+    {/* Additional meta tags for better SEO */}
+    <meta name="author" content="Your Name" />
+    <meta name="publisher" content="Your Company" />
+</Head>
+```
+
+</details>
+
+####
+<details>
+<summary> 🟩 SEO implementation </summary>
+
+- Use Semantic HTML -> <h1>, <h2>, <form>, <input>, <label>, <nav>
+- Provide Alt Text for Images
+- Ensure Keyboard Accessibility -> tabindex, aria-label
+- Provide Proper Color Contrast
+- Use ARIA (Accessible Rich Internet Applications) Attributes -> aria-label, aria-hidden, aria-live
+
+</details>
+
+####
+<details>
+<summary> 🟩 Micro Frontend Architecture </summary>
+
+- Micro Frontends is an architectural approach where a single application is split into multiple smaller, independent frontend applications. Each frontend application is responsible for a part of the user interface and can be developed, deployed, and scaled independently of the others.
+
+- The main goal of micro frontends is to break down a monolithic frontend into smaller, more manageable pieces, similar to how microservices work in the backend. This approach allows multiple teams to work on different parts of the frontend simultaneously, enabling better scalability, faster development cycles, and improved maintenance.
+
+- Key Concepts of Micro Frontends:
+    - Independent Deployment: Each micro frontend is self-contained and can be deployed independently, reducing deployment complexity.
+    - Separation of Concerns: Micro frontends divide the UI into different sections, which can be developed using different technologies or frameworks (React, Angular, Vue, etc.).
+    - Team Ownership: Different teams can own different micro frontends, enabling them to work on them independently without affecting other parts of the application.
+    - Integration via Composition: The smaller frontend applications are composed together to form the complete user interface.
+
+- How It Works:
+    - Micro frontends are usually implemented in one of the following ways:
+        - URL-Based Routing: Different micro frontends are served based on different routes in the application.
+        - Iframe-Based: Each micro frontend is loaded as an iframe, which isolates the application from others.
+        - Web Components: Micro frontends are built as web components, which can be embedded into any part of the application.
+
+- Advantages of Micro Frontends:
+    - Scalability: Teams can work on independent parts of the application, allowing for easier scaling of the development process.
+    - Technology Flexibility: Different micro frontends can use different technologies (e.g., one micro frontend can use React, while another uses Angular).
+    - Faster Development & Deployment: Since micro frontends are independent, teams can deploy and update them without affecting the entire application.
+    - Isolation: Bugs or issues in one micro frontend do not affect others, increasing stability.
+
+- Challenges of Micro Frontends:
+    - Complexity in Integration: Integrating multiple micro frontends into a seamless user experience can be complex.
+    - Performance Overhead: Loading multiple independent frontends could lead to performance issues, especially when dealing with different frameworks.
+    - Shared State Management: Handling state between different micro frontends can be tricky, as each part may have its own state.
+
+</details>
+
+####
+<details>
+<summary> 🟩 Module Federation </summary>
+
+- Module Federation is a feature in Webpack 5 that allows the sharing of code between different JavaScript applications at runtime. It enables multiple applications or micro frontends to load and share code dynamically, allowing them to function as a single cohesive unit.
+
+- The key concept of Module Federation is that it allows one application (known as the host application) to dynamically load and execute modules from other independent applications (known as remotes).
+
+- How Module Federation Works:
+    - Each application can expose some of its modules or components, which can then be shared with other applications (this is called the remote).
+    - The host application can dynamically load these remote modules at runtime.
+    - Both the host and the remote applications can use the same or different versions of dependencies.
+    - Module Federation uses Webpack to manage and share dependencies and code across applications.
+
+- Example Use Case of Module Federation:
+    - Imagine you have two independent micro frontend applications:
+    - Host Application (the main shell).
+    - Remote Application (a smaller, independent feature like a product listing).
+
+- The remote application (Product List) exposes its components via Module Federation. The host application dynamically loads these components at runtime as needed.
+
+- Advantages of Module Federation:
+    - Code Sharing: Modules can be shared across multiple applications, reducing the need for duplicate code.
+    - Dynamic Loading: The host app can load only the parts of the application it needs, improving the performance and user experience.
+    - Independence: The remote application can be developed and deployed independently from the host application.
+    - Avoid Version Conflicts: Module Federation ensures that multiple versions of dependencies can coexist, eliminating the potential issues of versioning conflicts.
+
+- Challenges of Module Federation:
+    - Complex Configuration: Setting up Module Federation can be complex, especially in larger applications with multiple micro frontends.
+    - Dependency Management: Managing shared dependencies and ensuring that they work seamlessly between remote and host applications can be tricky.
+    - Performance: There can be some performance overhead when loading remote modules dynamically, especially for large applications.
+
+</details>
+
+####
+<details>
 <summary> 🟩 diff between webpack and vite </summary>
 
 - Webpack: Think of Webpack like a chef who prepares all dishes first, then serves the meal.
@@ -315,5 +491,21 @@ function App() {
 
 export default App;
 ```
+
+</details>
+
+####
+<details>
+<summary>🟩 Jenkins (CI/CD Tool):</summary>
+
+- Jenkins is an open-source automation server used for Continuous Integration (CI) and Continuous Deployment (CD). It automates the process of building, testing, and deploying code. Jenkins helps developers by automatically running tests, generating build artifacts, and deploying applications with every code change. It integrates with version control systems like Git and supports a wide range of plugins for tasks such as testing, code quality analysis, and deployment. Jenkins improves development speed, ensures code quality, and reduces human errors by automating repetitive tasks.
+
+</details>
+
+####
+<details>
+<summary>🟩 Artifactory (Repository Manager):</summary>
+
+- Artifactory is a repository manager that stores and manages software artifacts (like JAR files, Docker images, or npm packages). It acts as a central hub for storing versions of artifacts and dependencies, ensuring teams can reuse and share code efficiently. Artifactory supports various package formats and integrates with CI/CD tools like Jenkins. By versioning and controlling dependencies, Artifactory ensures consistency across environments, facilitating easier collaboration between teams and enabling smoother, reliable software delivery.
 
 </details>

@@ -42,3 +42,12 @@
 - Code on Demand (Optional)
     - Server can send executable code to the client. Example: Send JavaScript to browser.
 </details>
+
+####
+<details>
+<summary>🟩 GraphQL</summary>
+
+- GraphQL is a query language for APIs and a runtime environment for executing queries against your data. It allows clients to request exactly the data they need and nothing more, making it more efficient than traditional REST APIs.
+- A GraphQL schema defines the types of data you can query for and the operations (queries, mutations) that can be executed. The schema defines types, queries, and mutations.
+
+</details>
