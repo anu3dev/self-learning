@@ -48,8 +48,45 @@ function SearchInput() {
 
 ####
 <details>
-<summary> 🟩  </summary>
+<summary> 🟩 controlled and uncontrolled components </summary>
 
+- A controlled component is a form input whose value is fully controlled by React state.
+    - React is the single source of truth.
+    - Input value updates via onChange.
+    - Easier to validate, manipulate, or reset.
+    - Good for complex forms.
 
+    ```javascript
+    function ControlledInput() {
+    const [text, setText] = useState("");
 
+    return (
+        <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        />
+    );
+    }
+    ```
+- An uncontrolled component stores its own state in the DOM, not in React.
+    - Uses ref to access the DOM value.
+    - Less React overhead (useful for simple or large forms).
+    - Harder to validate in real time.
+
+    ```javascript
+    function UncontrolledInput() {
+    const inputRef = useRef();
+
+    function handleSubmit() {
+        alert(inputRef.current.value); // read from DOM
+    }
+
+    return (
+        <>
+        <input ref={inputRef} />
+        <button onClick={handleSubmit}>Submit</button>
+        </>
+    );
+    }
+    ```
 </details>
