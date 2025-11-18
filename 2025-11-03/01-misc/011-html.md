@@ -253,7 +253,7 @@ SSR → Renders on the server, faster first load, strong SEO.
 <details>
 <summary> 🟩 SEO implementation </summary>
 
-- Use Semantic HTML -> <h1>, <h2>, <form>, <input>, <label>, <nav>
+- Use Semantic HTML -> `<h1>, <h2>, <form>, <input>, <label>, <nav>`
 - Provide Alt Text for Images
 - Ensure Keyboard Accessibility -> tabindex, aria-label
 - Provide Proper Color Contrast
