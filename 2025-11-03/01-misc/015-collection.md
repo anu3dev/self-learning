@@ -2,7 +2,7 @@
 
 ####
 <details>
-<summary> 🟩 collection </summary>
+<summary> 🟩 collection in java </summary>
 
 - The Java Collection Framework (JCF) is a unified architecture for storing, retrieving, and manipulating groups of data. It provides:
     - Interfaces (Abstract Data Types)
@@ -32,6 +32,12 @@
         - Collections.unmodifiableList() – make collection read-only
         - Collections.synchronizedList() – thread-safe wrapper
 
+</details>
+
+####
+<details>
+<summary> 🟩 collection - important </summary>
+
 - Difference between Collection and Collections?
     - Collection → interface
     - Collections → utility class
@@ -47,6 +53,12 @@
 - When to use ArrayList vs LinkedList?
     - ArrayList → fast lookup
     - LinkedList → fast insertion/deletion
+
+</details>
+
+####
+<details>
+<summary> 🟩 collection - Iterable (root interface) </summary>
 
 - Java Collection Framework Hierarchy
     - **Iterable**
@@ -219,4 +231,48 @@
             - order not guaranteed
 
                 - LinkedHashSet Example (maintains insertion order)
+
+                ```java
+                Set<Integer> linkedHashSet = new LinkedHashSet<>();
+                linkedHashSet.add(40);
+                linkedHashSet.add(10);
+                linkedHashSet.add(20);
+                linkedHashSet.add(30);
+                System.out.println(linkedHashSet); // [40, 10, 20, 30]
+                linkedHashSet.remove(10);
+                System.out.println(linkedHashSet); // [40, 20, 30]
+                ```
+
+            - SortedSet
+                - TreeSet -> TreeSet Example (sorted order)
+
+                ```java
+                SortedSet<Integer> treeSet = new TreeSet<>();
+                treeSet.add(40);
+                treeSet.add(10);
+                treeSet.add(55);
+                treeSet.add(20);
+                treeSet.add(30);
+                System.out.println(treeSet); // [10, 20, 30, 40] (always sorted)
+                treeSet.remove(10);
+                System.out.println(treeSet); // [20, 30, 40]
+
+                SortedSet<Integer> treeSortedSet = new TreeSet<>();
+                treeSortedSet.add(40);
+                treeSortedSet.add(10);
+                treeSortedSet.add(55);
+                treeSortedSet.add(20);
+                treeSortedSet.add(30);
+                System.out.println(treeSortedSet); // [10, 20, 30, 40] (always sorted)
+                treeSortedSet.remove(10);
+                System.out.println(treeSortedSet); // [20, 30, 40]
+                ```
+</details>
+
+####
+<details>
+<summary> 🟩 Map (separate hierarchy) </summary>
+
+- 
+
 </details>
