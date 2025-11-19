@@ -6,12 +6,12 @@
 
 - The Java Collection Framework (JCF) is a unified architecture for storing, retrieving, and manipulating groups of data. It provides:
     - Interfaces (Abstract Data Types)
-        - Collection – Root interface for most collections (except Map).
-        - List – Ordered, index-based, allows duplicates (ArrayList, LinkedList).
-        - Set – No duplicates (HashSet, LinkedHashSet, TreeSet).
-        - Queue – Follows FIFO or priority-based ordering (PriorityQueue, ArrayDeque).
-        - Deque – Double-ended queue (ArrayDeque, LinkedList).
-        - Map – Key–value pairs, no duplicate keys (HashMap, TreeMap, LinkedHashMap).
+        - Collection –> Root interface for most collections (except Map).
+        - List –> Ordered, index-based, allows duplicates (ArrayList, LinkedList).
+        - Set –> No duplicates (HashSet, LinkedHashSet, TreeSet).
+        - Queue –> Follows FIFO or priority-based ordering (PriorityQueue, ArrayDeque).
+        - Deque –> Double-ended queue (ArrayDeque, LinkedList).
+        - Map –> Key–value pairs, no duplicate keys (HashMap, TreeMap, LinkedHashMap).
 
     - Classes (Concrete Implementations)
         - ArrayList → dynamic array, fast random access.
@@ -24,13 +24,13 @@
         - TreeMap → sorted map.
 
     - Algorithms (Utility Methods)
-        - Collections.sort() – sorting lists
-        - Collections.reverse() – reversing order
-        - Collections.shuffle() – random order
-        - Collections.min()/max() – finding extremes
-        - Collections.binarySearch() – fast searches on sorted lists
-        - Collections.unmodifiableList() – make collection read-only
-        - Collections.synchronizedList() – thread-safe wrapper
+        - Collections.sort() –> sorting lists
+        - Collections.reverse() –> reversing order
+        - Collections.shuffle() –> random order
+        - Collections.min()/max() –> finding extremes
+        - Collections.binarySearch() –> fast searches on sorted lists
+        - Collections.unmodifiableList() –> make collection read-only
+        - Collections.synchronizedList() –> thread-safe wrapper
 
 </details>
 
@@ -58,31 +58,35 @@
 
 ####
 <details>
-<summary> 🟩 collection - Iterable (root interface) </summary>
+<summary> 🟩 Java Collection Framework Hierarchy </summary>
 
-- Java Collection Framework Hierarchy
-    - **Iterable**
-        - **Collection**
-            - **List**
-                - ArrayList  
-                - LinkedList  
-                - Vector  
-                    - Stack (legacy)
-            - **Queue**
-                - PriorityQueue
-                - **Deque**
-                    - ArrayDeque
-                    - LinkedList
-            - **Set**
-                - HashSet
-                    - LinkedHashSet
-                - SortedSet
-                    - TreeSet
-    - **Map** (separate hierarchy)
-        - HashMap  
-            - LinkedHashMap  
-        - SortedMap  
-            - TreeMap
+- **Iterable**
+    - **Collection**
+        - **List**
+            - ArrayList  
+            - LinkedList  
+            - Vector  
+                - Stack (legacy)
+        - **Queue**
+            - PriorityQueue
+            - **Deque**
+                - ArrayDeque
+                - LinkedList
+        - **Set**
+            - HashSet
+                - LinkedHashSet
+            - SortedSet
+                - TreeSet
+- **Map** (separate hierarchy)
+    - HashMap  
+        - LinkedHashMap  
+    - SortedMap  
+        - TreeMap
+</details>
+
+####
+<details>
+<summary> 🟩 collection - Iterable (root interface) </summary>
 
 - ITERABLE INTERFACE
     - The root interface for all collection types (except Map).
