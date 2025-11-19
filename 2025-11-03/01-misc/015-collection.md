@@ -277,6 +277,64 @@
 <details>
 <summary> 🟩 Map (separate hierarchy) </summary>
 
-- 
+- Map
+    - HashMap
 
+    ```java
+    Map<Integer, String> hashMap = new HashMap<>();
+    hashMap.put(5, "30");
+    hashMap.put(1, "10");
+    hashMap.put(2, "20");
+    hashMap.put(3, "30");
+    System.out.println(hashMap); // {1=10, 2=20, 3=30, 5=30}
+    hashMap.remove(1);
+    System.out.println(hashMap); // {2=20, 3=30, 5=30}
+    ```
+
+    - Order not guaranteed
+
+        - LinkedHashMap Example (maintains insertion order)
+
+        ```java
+        Map<Integer, String> linkedHashMapMap = new LinkedHashMap<>();
+        linkedHashMapMap.put(5, "30");
+        linkedHashMapMap.put(1, "10");
+        linkedHashMapMap.put(2, "20");
+        linkedHashMapMap.put(3, "30");
+        System.out.println(linkedHashMapMap); // {5=30, 1=10, 2=20, 3=30}
+        linkedHashMapMap.remove(1);
+        System.out.println(linkedHashMapMap); // {5=30, 2=20, 3=30}
+
+        HashMap<Integer, String> linkedHashMapHashMap = new LinkedHashMap<>();
+        linkedHashMapHashMap.put(5, "30");
+        linkedHashMapHashMap.put(1, "10");
+        linkedHashMapHashMap.put(2, "20");
+        linkedHashMapHashMap.put(3, "30");
+        System.out.println(linkedHashMapHashMap); // {5=30, 1=10, 2=20, 3=30}
+        linkedHashMapHashMap.remove(1);
+        System.out.println(linkedHashMapHashMap); // {5=30, 2=20, 3=30}
+        ```
+
+    - SortedMap
+        - TreeMap
+
+        ```java
+        Map<Integer, String> treeMapMap = new TreeMap<>();
+        treeMapMap.put(5, "30");
+        treeMapMap.put(1, "10");
+        treeMapMap.put(2, "20");
+        treeMapMap.put(3, "30");
+        System.out.println(treeMapMap); // {1=10, 2=20, 3=30, 5=30} (sorted)
+        treeMapMap.remove(1);
+        System.out.println(treeMapMap); // {2=20, 3=30, 5=30}
+
+        SortedMap<Integer, String> treeMapSortedMap = new TreeMap<>();
+        treeMapSortedMap.put(5, "30");
+        treeMapSortedMap.put(1, "10");
+        treeMapSortedMap.put(2, "20");
+        treeMapSortedMap.put(3, "30");
+        System.out.println(treeMapSortedMap); // {1=10, 2=20, 3=30, 5=30} (sorted)
+        treeMapSortedMap.remove(1);
+        System.out.println(treeMapSortedMap); // {2=20, 3=30, 5=30}
+        ```
 </details>
