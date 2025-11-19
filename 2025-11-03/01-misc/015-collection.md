@@ -144,77 +144,77 @@
                 System.out.println(stack); // [10, 20]
                 ```
 
-    - QUEUE INTERFACE (FIFO)
-        - Used for holding elements prior to processing
-        - Typically FIFO (First In, First Out)
-        - Defined in java.util
+        - QUEUE INTERFACE (FIFO)
+            - Used for holding elements prior to processing
+            - Typically FIFO (First In, First Out)
+            - Defined in java.util
 
-            - PriorityQueue
+                - PriorityQueue
+
+                ```java
+                Queue<Integer> priorityQueue = new PriorityQueue<>();
+                priorityQueue.offer(10);
+                priorityQueue.offer(20);
+                priorityQueue.offer(30);
+                System.out.println(priorityQueue); // [10, 20, 30]
+                priorityQueue.poll();
+                System.out.println(priorityQueue); // [20, 30]
+                ```
+
+                - Deque -> Deque extends Queue -> Queue extends Collection -> Collection extends Iterable
+
+                    - ArrayDeque
+
+                    ```java
+                    Deque<Integer> arrayDeque = new ArrayDeque<>();
+                    arrayDeque.add(10);
+                    arrayDeque.add(20);
+                    arrayDeque.add(30);
+                    arrayDeque.add(40);
+                    System.out.println(arrayDeque); // [10, 20, 30, 40]
+                    arrayDeque.removeFirst();
+                    arrayDeque.removeLast();
+                    System.out.println(arrayDeque); // [20, 30]
+                    arrayDeque.offer(23);
+                    System.out.println(arrayDeque); // [20, 30, 23]
+                    arrayDeque.poll();
+                    System.out.println(arrayDeque); // [30, 23]
+                    ```
+
+                    - LinkedList
+
+                    ```java
+                    Deque<Integer> linkedList = new LinkedList<>();
+                    linkedList.add(10);
+                    linkedList.add(20);
+                    linkedList.add(30);
+                    linkedList.add(40);
+                    System.out.println(linkedList); // [10, 20, 30, 40]
+                    linkedList.removeFirst();
+                    linkedList.removeLast();
+                    System.out.println(linkedList); // [20, 30]
+                    linkedList.offer(23);
+                    System.out.println(linkedList); // [20, 30, 23]
+                    linkedList.poll();
+                    System.out.println(linkedList); // [30, 23]
+                    ```
+
+        - SET INTERFACE (Unique elements, no duplicates)
+            - Does not allow duplicate elements.
+            - May or may not maintain order.
+
+            - HashSet -> order not guaranteed
 
             ```java
-            Queue<Integer> priorityQueue = new PriorityQueue<>();
-            priorityQueue.offer(10);
-            priorityQueue.offer(20);
-            priorityQueue.offer(30);
-            System.out.println(priorityQueue); // [10, 20, 30]
-            priorityQueue.poll();
-            System.out.println(priorityQueue); // [20, 30]
+            Set<Integer> hashSet = new HashSet<>();
+            hashSet.add(10);
+            hashSet.add(20);
+            hashSet.add(30);
+            hashSet.add(30); // will be ignored
+            System.out.println(hashSet); // [20, 10, 30]
+            hashSet.remove(10);
+            System.out.println(hashSet); // [20, 30]
             ```
-
-            - Deque -> Deque extends Queue -> Queue extends Collection -> Collection extends Iterable
-
-                - ArrayDeque
-
-                ```java
-                Deque<Integer> arrayDeque = new ArrayDeque<>();
-                arrayDeque.add(10);
-                arrayDeque.add(20);
-                arrayDeque.add(30);
-                arrayDeque.add(40);
-                System.out.println(arrayDeque); // [10, 20, 30, 40]
-                arrayDeque.removeFirst();
-                arrayDeque.removeLast();
-                System.out.println(arrayDeque); // [20, 30]
-                arrayDeque.offer(23);
-                System.out.println(arrayDeque); // [20, 30, 23]
-                arrayDeque.poll();
-                System.out.println(arrayDeque); // [30, 23]
-                ```
-
-                - LinkedList
-
-                ```java
-                Deque<Integer> linkedList = new LinkedList<>();
-                linkedList.add(10);
-                linkedList.add(20);
-                linkedList.add(30);
-                linkedList.add(40);
-                System.out.println(linkedList); // [10, 20, 30, 40]
-                linkedList.removeFirst();
-                linkedList.removeLast();
-                System.out.println(linkedList); // [20, 30]
-                linkedList.offer(23);
-                System.out.println(linkedList); // [20, 30, 23]
-                linkedList.poll();
-                System.out.println(linkedList); // [30, 23]
-                ```
-
-    - SET INTERFACE (Unique elements, no duplicates)
-        - Does not allow duplicate elements.
-        - May or may not maintain order.
-
-        - HashSet -> order not guaranteed
-
-        ```java
-        Set<Integer> hashSet = new HashSet<>();
-        hashSet.add(10);
-        hashSet.add(20);
-        hashSet.add(30);
-        hashSet.add(30); // will be ignored
-        System.out.println(hashSet); // [20, 10, 30]
-        hashSet.remove(10);
-        System.out.println(hashSet); // [20, 30]
-        ```
-        
-            - LinkedHashSet Example (maintains insertion order)
+            
+                - LinkedHashSet Example (maintains insertion order)
 </details>
