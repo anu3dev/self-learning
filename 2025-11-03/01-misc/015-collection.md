@@ -56,16 +56,16 @@
                 - LinkedList  
                 - Vector  
                     - Stack (legacy)
-        - **Queue**
-            - PriorityQueue
-            - **Deque**
-                - ArrayDeque
-                - LinkedList
-        - **Set**
-            - HashSet
-                - LinkedHashSet
-            - SortedSet
-                - TreeSet
+            - **Queue**
+                - PriorityQueue
+                - **Deque**
+                    - ArrayDeque
+                    - LinkedList
+            - **Set**
+                - HashSet
+                    - LinkedHashSet
+                - SortedSet
+                    - TreeSet
     - **Map** (separate hierarchy)
         - HashMap  
             - LinkedHashMap  
@@ -132,16 +132,16 @@
                 System.out.println(vector); // [20, 30]
                 ```
 
-                - Stack -> LIFO structure built on Vector (legacy)
+                    - Stack -> LIFO structure built on Vector (legacy)
 
-                ```java
-                Stack<Integer> stack = new Stack<>();
-                stack.push(10);
-                stack.push(20);
-                stack.push(30);
-                System.out.println(stack); // [10, 20, 30]
-                stack.pop();
-                System.out.println(stack); // [10, 20]
+                    ```java
+                    Stack<Integer> stack = new Stack<>();
+                    stack.push(10);
+                    stack.push(20);
+                    stack.push(30);
+                    System.out.println(stack); // [10, 20, 30]
+                    stack.pop();
+                    System.out.println(stack); // [10, 20]
                 ```
 
         - QUEUE INTERFACE (FIFO)
