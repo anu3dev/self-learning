@@ -120,7 +120,7 @@
                 System.out.println(linkedList); // [20, 30]
                 ```
 
-                - Vector -> like ArrayList but thread-safe & legacy
+                - Vector
 
                 ```java
                 List<Integer> vector = new Vector<>();
@@ -131,6 +131,7 @@
                 vector.remove(0);
                 System.out.println(vector); // [20, 30]
                 ```
+                - like ArrayList but thread-safe & legacy
 
                     - Stack -> LIFO structure built on Vector (legacy)
 
@@ -142,7 +143,7 @@
                     System.out.println(stack); // [10, 20, 30]
                     stack.pop();
                     System.out.println(stack); // [10, 20]
-                ```
+                    ```
 
         - QUEUE INTERFACE (FIFO)
             - Used for holding elements prior to processing
@@ -203,7 +204,7 @@
             - Does not allow duplicate elements.
             - May or may not maintain order.
 
-            - HashSet -> order not guaranteed
+            - HashSet
 
             ```java
             Set<Integer> hashSet = new HashSet<>();
@@ -215,6 +216,7 @@
             hashSet.remove(10);
             System.out.println(hashSet); // [20, 30]
             ```
-            
+            - order not guaranteed
+
                 - LinkedHashSet Example (maintains insertion order)
 </details>
