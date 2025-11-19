@@ -107,12 +107,15 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
+import java.util.Vector;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -187,15 +190,15 @@ public class App {
         System.out.println(queue1);
         
         // LinkedList means combination of List and Queue -> FIFO
-        LinkedList<Integer> stack = new LinkedList<>();
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        stack.push(3);
-        stack.push(4);
-        stack.push(5);
-        stack.pop();
-        System.out.println(stack);
+        LinkedList<Integer> stack1 = new LinkedList<>();
+        stack1.push(1);
+        stack1.push(2);
+        stack1.push(3);
+        stack1.push(3);
+        stack1.push(4);
+        stack1.push(5);
+        stack1.pop();
+        System.out.println(stack1);
         
         // Queue - A linear collection that follows FIFO (First In, First Out) order.
         // Deque - A queue that allows insertion and removal from both ends — front and rear.
@@ -216,6 +219,14 @@ public class App {
         System.out.println(deque);
         
         // Map
+
+
+
+
+
+
+
+
     }
 }
 
