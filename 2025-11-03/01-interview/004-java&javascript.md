@@ -435,3 +435,50 @@ public class Main {
 - interrupt() -> Interrupt a sleeping/waiting thread
 - isAlive() -> Checks if running
 </details>
+
+####
+<details>
+<summary> 🟩 abstract class and interface in typescript </summary>
+
+- Abstraction in TypeScript and Java is conceptually the same, abstraction is hiding internal details and exposing only what’s necessary, it can be achieved using Abstract Classes(partial abstraction) and Interfaces(full abstraction)
+
+```typescript
+// abstract
+abstract class Vehicle {
+  // abstract method → no body, must be implemented by subclass
+  abstract start(): void;
+
+  // normal method → shared logic
+  stop(): void {
+    console.log("Vehicle stopped.");
+  }
+}
+
+class Car extends Vehicle {
+  start(): void {
+    console.log("Car started with key or button.");
+  }
+}
+
+const myCar = new Car();
+myCar.start(); // ✅ "Car started with key or button."
+myCar.stop();  // ✅ "Vehicle stopped."
+
+
+
+// interface
+interface PaymentGateway {
+  makePayment(amount: number): void;
+}
+
+class PayPal implements PaymentGateway {
+  makePayment(amount: number): void {
+    console.log(`Paid $${amount} using PayPal.`);
+  }
+}
+
+const payment = new PayPal();
+payment.makePayment(100); // ✅ "Paid $100 using PayPal."
+```
+
+</details>
