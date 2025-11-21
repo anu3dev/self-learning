@@ -34,6 +34,18 @@
         - Debugging remote loading issues is tricky.
         - Caching problems if remoteEntry URLs are not versioned.
 
+    - you can create a “Module Federated” architecture with both Webpack and Vite
+        - Webpack Module Federation
+            - Official feature built into Webpack 5
+            - Uses the real Module Federation runtime
+            - Production-proven, stable, fully supported
+            - Best for large, enterprise microfrontend systems
+        - Vite Module Federation (via plugin)
+            - Achieved using vite-plugin-federation, NOT using Webpack
+            - A re-implementation (community plugin) that imitates Module Federation
+            - Works, but not as mature or feature-complete
+            - Good for prototypes or simple MF setups
+            
 - 3. Micro Frontends
     - Benefits
         - Independent deployments per team.
