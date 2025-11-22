@@ -1,0 +1,9 @@
+body { font-family: Arial, sans-serif; margin:0; background:#f7f7f7; }
+.header { display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#222; color:#fff; }
+.header .brand { font-weight:700; cursor:pointer; }
+.header nav button { margin-left:8px; background:transparent; color:#fff; border:1px solid #fff; padding:6px 10px; border-radius:6px; cursor:pointer; }
+.container { padding:20px; max-width:900px; margin:20px auto; background:#fff; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+.list { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+.card { display:flex; justify-content:space-between; align-items:center; padding:12px; border:1px solid #eee; border-radius:6px; background:#fafafa; }
+button { cursor:pointer; }
+.total { margin-top:12px; font-weight:700; }
