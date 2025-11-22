@@ -105,6 +105,8 @@ public class App {
 				System.out.println("Bark");
 			}
 		}
+		Dog dog = new Dog();
+		dog.makeSound();
 
 		/**
 		 * Static-
@@ -117,5 +119,6 @@ public class App {
 				return a + b;
 			}
 		}
+		System.out.println(MathUtils.add(15, 17));;
 	}
 }

@@ -21,11 +21,11 @@ public class CourseConstructorInjection {
 	 * @Autowired handles Runtime dependency injection.
 	 * - tells the Spring container to inject a dependency.
 	 */
-	@Autowired
 	public CourseConstructorInjection(ICourse course) {
 		this.cou = course;
 	}
 	
+	@Autowired
 	public void purchaseCourse(double price) {
 		cou.purchaseCourse(price);
 	}
