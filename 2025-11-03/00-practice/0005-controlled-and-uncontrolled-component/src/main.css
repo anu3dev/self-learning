@@ -7,16 +7,12 @@
 .app{
     max-width: 40rem;
     text-align: center;
-    
-    h2 {
-        margin-bottom: 2rem;
-    }
 
     .form{
         border: solid .25rem black;
         border-radius: .5rem;
         padding: 1rem;
-        margin: 2rem auto;
+        margin: 0 auto;
 
         .field{
             display: flex;
@@ -29,6 +25,11 @@
             .input-error{
                 border: solid .125rem red;
             }
+
+            button:hover {
+                cursor: pointer;;
+            }
         }
     }
 }
+
