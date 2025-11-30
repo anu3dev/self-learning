@@ -1,0 +1,22 @@
+### backend-design
+
+- Gang of Four
+    - Creational — control object creation
+        - Singleton — ensure one instance + global access.
+        - Factory Method — subclass decides which class to instantiate.
+        - Abstract Factory — family of related objects without specifying concrete classes.
+        - Builder — step-by-step construction of complex object (good for many optional params).
+        - Prototype — clone existing objects.
+    - Structural — compose classes/objects into larger structures
+        - Adapter — make incompatible interfaces work together.
+        - Decorator — add responsibilities to objects dynamically.
+        - Facade — provide a simple interface to a complex subsystem.
+        - Composite — tree structures of objects treated uniformly (leaf + composite).
+        - Proxy — placeholder controlling access to another object.
+    - Behavioral — object interaction and responsibilities
+        - Strategy — swap algorithms at runtime.
+        - Observer — publish/subscribe; observers update on subject changes.
+        - Command — encapsulate requests as objects (undo/redo, queues).
+        - Iterator — sequential access to elements without exposing internals.
+        - Template Method — skeleton of algorithm in base class with steps overridden by subclasses.
+        - State — object behavior changes with its internal state.
