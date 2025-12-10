@@ -92,6 +92,7 @@ Models that create new content (text, images, audio). Like an artist trained on 
 
 ## 6.2 Foundation Models (FMs)
 Large models pre-trained on huge datasets and adaptable to many tasks. Like universal engines.
+FMs use unlabeled training data sets for self-supervised learning.
 
 ## 6.3 Large Language Models (LLMs)
 Foundation models focused on text — chat, Q&A, translation, summarization.
@@ -175,7 +176,8 @@ Low p → strict; High p → flexible.
 Caps output token size (short vs long response).
 
 > Exam Tip: These affect creativity, not latency.
-
+> Overfitting occurs when a model performs well on the training data but poorly on new, unseen data, while underfitting occurs when a model performs poorly on both the training data and new, unseen data
+> Underfit models experience high bias, whereas, overfit models experience high variance
 ---
 
 # 11. Responsible AI Principles
@@ -301,4 +303,23 @@ Best-practice recommendations.
 GANs train a generator and discriminator in competition to create realistic synthetic data.
 
 ---
+
+# 18. Miclanious topics
+This process is called inference, where the model uses its trained parameters to generate a prediction or output based on new input data provided by the user
+
+> Smaller models are cheaper to use than larger models
+> You can use a customized model only in the Provisioned Throughput mode
+
+---
+
+# 19. amazon Q
+A fully managed service that makes it easy to build, train, and deploy quantum computing applications at scale.
+LLM and RAG can be used used in amazon Q.
+
+---
+
+# 20. AWS global infrastructure
+Each AWS Region consists of a minimum of three Availability Zones (AZ).
+Each Availability Zone (AZ) consists of one or more discrete data centers.
+
 
