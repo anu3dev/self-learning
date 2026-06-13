@@ -35,3 +35,19 @@ Categorical data: Categorical data are values that cannot be measured up against
 
 Ordinal data: Ordinal data are like categorical data, but can be measured up against each other. Example: school grades where A is better than B and so on.
 '''
+
+
+
+'''
+In the mind of a computer, a data set is any collection of data.
+
+Example of an array:
+[99,86,87,88,111,86,103,87,94,78,77,85,86]
+
+Example of a database:
+Carname     Color	    Age	    Speed	    AutoPass
+BMW         red	        5	    99	        Y
+Volvo	    black	    7	    86	        Y
+VW	        gray	    8	    87	        N
+VW	        white	    7	    88	        Y
+'''
