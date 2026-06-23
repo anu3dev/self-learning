@@ -1,0 +1,8 @@
+- What is class and Object?
+- What is constructor and how it works?
+- What is method overloading? compile time polymorphism?
+- What is getter and Setter? encapsulation?
+- What is abstraction? inheritance? IS-a-relation? method overriding? run time polymorphism?
+- What is interface? polymorphism?
+- Difference between abstraction and interface?
+- Association / Aggregation / Composition? Composition Over Inheritance?
