@@ -1,0 +1,63 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&family=Manrope:wght@400;600&display=swap');
+
+:root {
+  --rose-50: #fff7f2;
+  --rose-100: #ffe8dc;
+  --rose-300: #e5b4a4;
+  --rose-700: #8d2e3e;
+  --rose-900: #45191f;
+  --green-700: #2d5b45;
+
+  --script: 'Great Vibes', cursive;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Manrope', 'Segoe UI', sans-serif;
+
+  font-family: var(--sans);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--rose-900);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 205, 193, 0.48), transparent 35%),
+    radial-gradient(circle at 95% 5%, rgba(189, 226, 203, 0.42), transparent 38%),
+    linear-gradient(160deg, #fff8f1 0%, #ffece2 55%, #ffe4de 100%);
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(35px);
+}
+
+body::before {
+  top: -80px;
+  right: -70px;
+  background: rgba(197, 49, 79, 0.25);
+}
+
+body::after {
+  bottom: -100px;
+  left: -90px;
+  background: rgba(51, 111, 83, 0.25);
+}
+
+#root {
+  min-height: 100vh;
+}
