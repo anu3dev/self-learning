@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@400;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --rose:    #e8547a;
+  --rose-dk: #c03060;
+  --gold:    #f0c060;
+  --cream:   #fff8f2;
+  --purple:  #8b4fa8;
+  --pink-lt: #ffe4ef;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans:  'Lato', sans-serif;
+  --font-script:'Dancing Script', cursive;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+  background: #0d0010;
+  font-family: var(--font-sans);
+  color: #fff;
+}
+
+/* ── scrollable slide wrapper ── */
+.slide {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ── floating hearts / petals background ── */
+@keyframes floatUp {
+  0%   { transform: translateY(0)   rotate(0deg)   scale(1);   opacity: 0.9; }
+  100% { transform: translateY(-110vh) rotate(360deg) scale(0.4); opacity: 0; }
+}
+.petal {
+  position: fixed;
+  bottom: -60px;
+  font-size: 1.4rem;
+  animation: floatUp linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── glowing text ── */
+.glow {
+  text-shadow: 0 0 18px #e8547a, 0 0 40px #e8547a66;
+}
+.gold-glow {
+  text-shadow: 0 0 14px #f0c060, 0 0 36px #f0c06066;
+}
+
+/* ── glass card ── */
+.glass {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 24px;
+}
+
+/* ── scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #e8547a66; border-radius: 2px; }
+
+/* ── button base ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 36px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.btn:hover  { transform: translateY(-2px) scale(1.04); }
+.btn:active { transform: scale(0.97); }
+
+.btn-rose {
+  background: linear-gradient(135deg, #e8547a, #c03060);
+  color: #fff;
+  box-shadow: 0 6px 28px #e8547a55;
+}
+.btn-gold {
+  background: linear-gradient(135deg, #f0c060, #d4903a);
+  color: #1a0a00;
+  box-shadow: 0 6px 28px #f0c06055;
+}
+.btn-ghost {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* ── star burst ── */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.6); }
+}
+.star {
+  position: fixed;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
