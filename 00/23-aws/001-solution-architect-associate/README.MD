@@ -449,6 +449,12 @@ Lambda
 → Less control
 ```
 
+By default, AWS Lambda functions always operate from an AWS-owned VPC and hence have access to any public internet address or public AWS APIs. Once an AWS Lambda function is VPC-enabled, it will need a route through a Network Address Translation gateway (NAT gateway) in a public subnet to access public resources
+
+If you intend to reuse code in more than one AWS Lambda function, you should consider creating an AWS Lambda Layer for the reusable code
+
+Since AWS Lambda functions can scale extremely quickly, it's a good idea to deploy a Amazon CloudWatch Alarm that notifies your team when function metrics such as ConcurrentExecutions or Invocations exceeds the expected threshold
+
 ### Lambda example
 
 ```text
@@ -775,6 +781,12 @@ Virtual Private Gateway
 - AWS side: Virtual Private Gateway (VGW).
 - On-premises side: Customer Gateway.
 
+VPN connection is a secure connection between your on-premises equipment and your VPCs. Each VPN connection has two VPN tunnels which you can use for high availability. A VPN tunnel is an encrypted link where data can pass from the customer network to or from AWS. The following diagram shows the high-level connectivity with virtual private gateways.
+
+With AWS Transit Gateway, you can simplify the connectivity between multiple VPCs and also connect to any VPC attached to AWS Transit Gateway with a single VPN connection. AWS Transit Gateway also enables you to scale the IPsec VPN throughput with equal cost multi-path (ECMP) routing support over multiple VPN tunnels. A single VPN tunnel still has a maximum throughput of 1.25 Gbps. If you establish multiple VPN tunnels to an ECMP-enabled transit gateway, it can scale beyond the default maximum limit of 1.25 Gbps. You also must enable the dynamic routing option on your transit gateway to be able to take advantage of ECMP for scalability.
+
+Use AWS Direct Connect connection as a primary connection and Use AWS Site-to-Site VPN as a backup connection
+
 # 17. VPC SHARING / MULTI-ACCOUNT NETWORKING
 
 When multiple AWS accounts in one Region are managed by AWS Organizations and need private connectivity:
@@ -1012,6 +1024,12 @@ IAM Role/User
 ```
 
 only resource based policies can be attached to IAM service is **Trust Policy**.
+
+Use a bucket policy to grant permission to users in its account as well as to users in another account
+
+bucket policy is a type of resource-based policy that can be used to grant permissions to the principal that is specified in the policy
+
+For cross-account permissions to other AWS accounts or users in another account, you must use a bucket policy, If an AWS account that owns a bucket wants to grant permission to users in its own AWS account, it can use either a bucket policy or a user policy
 
 ## SCP
 
@@ -1348,6 +1366,8 @@ AWS DMS
 
 Use SCT together with DMS when schema conversion and data migration are both required.
 
+Leverage AWS Database Migration Service (AWS DMS) as a bridge between Amazon S3 and Amazon Kinesis Data Streams
+
 # 29. DYNAMODB
 
 ```text
@@ -1397,6 +1417,20 @@ Point-in-time recovery:
 ```text
 Unpredictable workload
 → On-Demand capacity
+```
+
+## DynamoDB DAX
+
+Use for:
+- In-memory caching for DynamoDB.
+- Reduces read latency for eventually consistent reads.
+- Improve performance by 10x.
+
+```text
+DynamoDB
+   ↑
+   │
+  DAX (in-memory cache)
 ```
 
 # 30. ELASTICACHE vs MEMORYDB
