@@ -290,6 +290,25 @@ Think:
 API Gateway → API management/front door
 ALB         → application HTTP/HTTPS load balancing
 NLB         → TCP/UDP/TLS high-performance network load balancing
+
+For an internet-facing Network Load Balancer, AWS assigns one IP address per Availability Zone. These NLB IPs are static for the life of the NLB
+For an internet-facing NLB, you can associate an Elastic IP (EIP) with each enabled AZ. This is useful when a customer says: "I need you to give me a fixed IP so I can whitelist it in my firewall."
+```
+
+```test
+Public IP 
+   → Can change
+
+Static IP 
+   → Does not change
+
+Elastic IP
+   → AWS-reserved public IPv4
+   → Can be attached/re-attached to resources
+```
+
+```text
+Alias is a Route 53 feature that allows you to map a domain name to an AWS resource, such as an S3 bucket, CloudFront distribution, or an ELB, without using an IP address.
 ```
 
 # 8. THREE-TIER NETWORK PATTERN
@@ -454,6 +473,8 @@ By default, AWS Lambda functions always operate from an AWS-owned VPC and hence 
 If you intend to reuse code in more than one AWS Lambda function, you should consider creating an AWS Lambda Layer for the reusable code
 
 Since AWS Lambda functions can scale extremely quickly, it's a good idea to deploy a Amazon CloudWatch Alarm that notifies your team when function metrics such as ConcurrentExecutions or Invocations exceeds the expected threshold
+
+Lambda reads database connection string from parameters stored in AWS Systems Manager Parameter Store or AWS Secrets Manager.
 
 ### Lambda example
 
@@ -655,6 +676,9 @@ Primarily used for:
 - DynamoDB
 
 Works through route tables.
+
+Gateway Endpoint = S3 / DynamoDB
+Interface Endpoint = most other AWS services
 
 ### NAT vs VPC Endpoint
 
@@ -971,6 +995,56 @@ For enhanced DDoS protection:
 - AWS Shield Advanced provides proactive DDoS protection.
 - Can engage the AWS DDoS Response Team (DRT).
 - Provides logging/reporting for detected events.
+
+```text
+                         INTERNET
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │   Route 53    │ -> where to go after DNS resolution
+                    │      DNS      │ -> routing policies such as Failover, Latency, Weighted, Geolocation, Geo-proximity
+                    └───────┬───────┘
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │  CloudFront   │ -> content delivery CDN / caching layer
+                    │     CDN       │
+                    └───────┬───────┘
+                            │
+                 ┌──────────┴──────────┐
+                 │                     │
+          AWS Shield               AWS WAF
+          DDoS protection       IP / Geo / Rate
+                 │               Web filtering
+                 └──────────┬──────────┘
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │      ALB      │
+                    │ Load Balancer │
+                    └───────┬───────┘
+                            │
+                  ALB Security Group
+                            │
+                    ┌───────┴───────┐
+                    ▼               ▼
+                 EC2-A           EC2-B
+                 AZ-1             AZ-2
+              Private Subnet   Private Subnet
+                    │               │
+                    └───────┬───────┘
+                            │
+                    EC2 Security Group
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │      RDS      │
+                    │    Multi-AZ   │
+                    └───────────────┘
+```
+
+ALB - operates on layer 7 with protocols such as HTTP and HTTPS
+NLB - operates on layer 4 with protocols such as TCP, UDP and TLS
 
 # 22. AWS SECURITY SERVICES — CLUE MAP
 
@@ -1674,6 +1748,8 @@ Glue
 Lake Formation
 → Data lake governance / permissions
 ```
+
+Lake Formation tag-based access control to authorize and grant cross-account permissions for the required data to the marketing team accounts
 
 ## Security Lake
 
@@ -3549,8 +3625,6 @@ The supplied mock notes covered the following major areas, all organized above:
 - Placement Groups
 - Final mock-exam clue maps and decision trees
 
----
-
 # 82. ULTRA-SHORT MEMORY GRAPH
 
 ```text
@@ -3650,16 +3724,928 @@ FILE MIGRATION      → DataSync
 BIG DATA / POOR NET → Snowball
 ```
 
+# 83. AWS Data
+
+```text
+                              AWS DATA + OPERATIONS BIG PICTURE
+┌──────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                              │
+│                         AWS ENVIRONMENT                                                      │
+│                              │                                                               │
+│          ┌───────────────────┼────────────────────┐                                          │
+│          │                   │                    │                                          │
+│          ▼                   ▼                    ▼                                          │
+│     APPLICATIONS           DATA              AWS RESOURCES                                   │
+│     EC2/ECS/EKS          S3/RDS/etc.        VPC/IAM/EC2/etc.                                 │ 
+│          │                   │                    │                                          │
+│          │                   │                    │                                          │
+│          ▼                   │                    ▼                                          │
+│  ┌────────────────┐          │            ┌────────────────┐                                 │
+│  │  CloudWatch    │          │            │   CloudTrail   │                                 │
+│  │────────────────│          │            │────────────────│                                 │
+│  │ Monitor        │          │            │ Audit AWS      │                                 │
+│  │ Metrics        │          │            │ API activity   │                                 │
+│  │ Logs           │          │            │ Who did what?  │                                 │
+│  │ Alarms         │          │            └───────┬────────┘                                 │
+│  └───────┬────────┘          │                    │                                          │
+│          │                   │                    ▼                                          │
+│          │                   │             Security / Audit                                  │
+│          ▼                   │                                                               │
+│  ┌────────────────┐          │                                                               │
+│  │    Grafana     │          │                                                               │
+│  │────────────────│          │                                                               │
+│  │ Visualize      │          │                                                               │
+│  │ monitoring     │          │                                                               │
+│  │ data from      │          │                                                               │
+│  │ many sources   │          │                                                               │
+│  └────────────────┘          │                                                               │
+│                              │                                                               │
+│                              ▼                                                               │
+│                        ┌─────────────┐                                                       │
+│                        │   Kinesis   │                                                       │
+│                        │─────────────│                                                       │
+│                        │ Real-time   │                                                       │
+│                        │ streaming   │                                                       │
+│                        │ data/events │                                                       │
+│                        └──────┬──────┘                                                       │
+│                               │                                                              │
+│                               ▼                                                              │
+│                        ┌─────────────┐                                                       │
+│                        │     S3      │                                                       │
+│                        │─────────────│                                                       │
+│                        │ Data lake / │                                                       │
+│                        │ raw data    │                                                       │
+│                        │ storage     │                                                       │
+│                        └──────┬──────┘                                                       │
+│                               │                                                              │
+│                    ┌──────────┴───────────┐                                                  │
+│                    │                      │                                                  │
+│                    ▼                      ▼                                                  │
+│              ┌───────────┐        ┌────────────────┐                                         │
+│              │   Glue    │        │ Lake Formation │                                         │
+│              │───────────│        │────────────────│                                         │
+│              │ ETL       │        │ Data lake      │                                         │
+│              │ Transform │        │ governance     │                                         │
+│              │ Data      │        │ Permissions    │                                         │
+│              │ Catalog   │        │ Access control │                                         │
+│              └─────┬─────┘        └────────────────┘                                         │
+│                    │                                                                         │
+│                    │                                                                         │
+│              ┌─────┴──────────────────┐                                                      │
+│              │                        │                                                      │
+│              ▼                        ▼                                                      │
+│        ┌─────────────┐          ┌─────────────┐                                              │
+│        │   Athena    │          │  Redshift   │                                              │
+│        │─────────────│          │─────────────│                                              │
+│        │ SQL directly│          │ Data        │                                              │
+│        │ on S3       │          │ warehouse   │                                              │
+│        │ Serverless  │          │ Large-scale │                                              │
+│        │ queries     │          │ analytics   │                                              │
+│        └──────┬──────┘          └──────┬──────┘                                              │
+│               │                        │                                                     │
+│               └────────────┬───────────┘                                                     │
+│                            ▼                                                                 │
+│                     ┌──────────────┐                                                         │
+│                     │  QuickSight  │                                                         │
+│                     │──────────────│                                                         │
+│                     │ BI / Reports │                                                         │
+│                     │ Dashboards   │                                                         │
+│                     │ KPIs         │                                                         │
+│                     └──────────────┘                                                         │
+│                                                                                              │
+│                                                                                              │
+│  ───────────────────────────── SEARCH / LOG ANALYTICS ─────────────────────────────────────  │
+│                                                                                              │
+│       Application Search                         Logs / Search / Observability               │
+│              │                                               │                               │
+│              ▼                                               ▼                               │
+│       ┌──────────────┐                              ┌────────────────┐                       │
+│       │ CloudSearch  │                              │  OpenSearch    │                       │
+│       │──────────────│                              │────────────────│                       │
+│       │ Application  │                              │ Search         │                       │
+│       │ search       │                              │ Logs           │                       │
+│       │              │                              │ Observability  │                       │
+│       └──────────────┘                              │ Analytics      │                       │
+│                                                    └────────────────┘                        │
+│                                                                                              │
+│                                                                                              │
+│  ───────────────────────────── GOVERNANCE / RECOMMENDATIONS ──────────────────────────────── │
+│                                                                                              │
+│       ┌────────────────┐      ┌────────────────┐      ┌────────────────────┐                 │
+│       │ AWS Config     │      │ Trusted        │      │ AWS Data Exchange  │                 │
+│       │────────────────│      │ Advisor        │      │────────────────────│                 │
+│       │ Resource       │      │────────────────│      │ Third-party        │                 │
+│       │ configuration  │      │ Recommendations│      │ datasets           │                 │
+│       │ Compliance     │      │ Cost           │      │ Subscribe / share  │                 │
+│       │ Rules          │      │ Security       │      │ external data      │                 │
+│       └────────────────┘      │ Performance    │      └────────────────────┘                 │
+│                               └────────────────┘                                             │
+│                                                                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────┘
+
+REAL-TIME DATA
+     │
+     ▼
+  Kinesis
+     │
+     ▼
+     S3
+     │
+     ├──────────────► Glue
+     │                  │
+     │                  └── ETL + Catalog
+     │
+     ├──────────────► Athena
+     │                  │
+     │                  └── SQL on S3
+     │
+     └──────────────► Lake Formation
+                        │
+                        └── Governance + Permissions
 
 
+LARGE-SCALE ANALYTICS
+     │
+     ▼
+  Redshift
+     │
+     ▼
+ QuickSight
+     │
+     ▼
+Business Dashboard
 
 
+AWS OPERATIONS
+     │
+     ├──► CloudWatch ──► Grafana
+     │       │
+     │       └── Metrics / Logs / Alarms
+     │
+     ├──► CloudTrail
+     │       └── Audit / API activity
+     │
+     ├──► Config
+     │       └── Configuration / Compliance
+     │
+     └──► Trusted Advisor
+             └── Recommendations
 
 
+SEARCH
+     │
+     ├──► CloudSearch → Application Search
+     │
+     └──► OpenSearch  → Search + Logs + Observability
 
 
+EXTERNAL DATA
+     │
+     ▼
+Data Exchange
+     │
+     └── Third-party datasets
+```
+
+# 84. AWS MULTI-ACCOUNT SECURITY & GOVERNANCE
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│                         AWS MULTI-ACCOUNT ENVIRONMENT                                       │
+│                                                                                             │
+│                         ┌──────────────────────┐                                            │
+│                         │ AWS ORGANIZATIONS    │                                            │
+│                         │──────────────────────│                                            │
+│                         │ Manage multiple AWS  │                                            │
+│                         │ accounts centrally   │                                            │
+│                         │ Billing + governance │                                            │
+│                         └──────────┬───────────┘                                            │
+│                                    │                                                        │
+│                    ┌───────────────┼────────────────┐                                       │
+│                    │               │                │                                       │
+│                    ▼               ▼                ▼                                       │
+│              ┌──────────┐   ┌──────────┐     ┌──────────────┐                               │
+│              │ Security │   │ Dev      │     │ Production   │                               │
+│              │ OU       │   │ OU       │     │ OU           │                               │
+│              └────┬─────┘   └────┬─────┘     └──────┬───────┘                               │
+│                   │              │                   │                                      │
+│                   ▼              ▼                   ▼                                      │
+│              Security       Dev Account         Prod Account                                │
+│              Accounts      Account(s)          Account(s)                                   │
+│                                                                                             │
+│                                    │                                                        │
+│                                    ▼                                                        │
+│                         ┌─────────────────────┐                                             │
+│                         │       SCP           │                                             │
+│                         │─────────────────────│                                             │
+│                         │ Organization-level  │                                             │
+│                         │ permission          │                                             │
+│                         │ guardrail           │                                             │
+│                         │                     │                                             │
+│                         │ "Maximum allowed"   │                                             │
+│                         └──────────┬──────────┘                                             │
+│                                    │                                                        │
+│                                    ▼                                                        │
+│                         ┌─────────────────────┐                                             │
+│                         │       RCP           │                                             │
+│                         │─────────────────────│                                             │
+│                         │ Resource-level      │                                             │
+│                         │ organization        │                                             │
+│                         │ guardrail           │                                             │
+│                         └──────────┬──────────┘                                             │
+│                                    │                                                        │
+│                                    ▼                                                        │
+│       ┌────────────────────────────────────────────────────────────────────────────┐        │
+│       │                         EACH AWS ACCOUNT                                   │        │
+│       │                                                                            │        │
+│       │       ┌────────────────────────────────────────────────────┐               │        │
+│       │       │                    IAM                             │               │        │
+│       │       │────────────────────────────────────────────────────│               │        │
+│       │       │ Controls WHO can access WHAT                       │               │        │
+│       │       │                                                    │               │        │
+│       │       │  User ─────┐                                       │               │        │
+│       │       │  Group ────┼──► IAM Policy ──► Permissions         │               │        │
+│       │       │  Role ─────┘                                       │               │        │
+│       │       │                                                    │               │        │
+│       │       └──────────────────────┬─────────────────────────────┘               │        │
+│       │                              │                                             │        │
+│       │                              ▼                                             │        │
+│       │                  ┌────────────────────────┐                                │        │
+│       │                  │ PERMISSION BOUNDARY    │                                │        │
+│       │                  │────────────────────────│                                │        │
+│       │                  │ Maximum permissions    │                                │        │
+│       │                  │ for a specific IAM     │                                │        │
+│       │                  │ user/role              │                                │        │
+│       │                  └────────────┬───────────┘                                │        │
+│       │                               │                                            │        │
+│       │                               ▼                                            │        │
+│       │                       Effective Access                                     │        │
+│       │                                                                            │        │
+│       └────────────────────────────────────────────────────────────────────────────┘        │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+
+                           AWS MULTI-ACCOUNT GOVERNANCE
+                                      │
+                                      ▼
+                         ┌────────────────────────┐
+                         │   AWS ORGANIZATIONS    │
+                         │────────────────────────│
+                         │ Multiple accounts      │
+                         │ OUs + centralized      │
+                         │ management/billing     │
+                         └───────────┬────────────┘
+                                     │
+                         ┌───────────▼────────────┐
+                         │     CONTROL TOWER      │
+                         │────────────────────────│
+                         │ Landing Zone           │
+                         │ Account Factory        │
+                         │ Guardrails / Controls  │
+                         │ Central governance     │
+                         └───────────┬────────────┘
+                                     │
+                    ┌────────────────┼─────────────────┐
+                    │                │                 │
+                    ▼                ▼                 ▼
+                  SCP              RCP              Config
+              "Limit IAM       "Limit access      "Check resource
+               principals"      to resources"       configuration"
+                    │                │                 │
+                    └────────────────┼─────────────────┘
+                                     │
+                                     ▼
+                              AWS ACCOUNTS
+                                     │
+                                     ▼
+                                    IAM
+                                     │
+                    ┌────────────────┼────────────────┐
+                    │                │                │
+                    ▼                ▼                ▼
+                  Users            Roles            Groups
+                    │                │                │
+                    └────────────────┼────────────────┘
+                                     ▼
+                              IAM POLICIES
+                                     │
+                                     ▼
+                          Permission Boundary
+                                     │
+                                     ▼
+                             EFFECTIVE ACCESS
+```
+
+# 85. patch management
+- patch manager 
+   - automates the process of patching managed instances with security updates and other types of patches
+- if organization needs to install a third-party tool onEc2 then
+   - use Systems Manager to automate the installation and configuration of the tool
+
+# 86. failover
+   - failover across regions needs cross region architecture and it will also need global accelerator
+   - within a region, failover can be achieved using services like ELB, Auto Scaling, and Route 53 health checks
+
+   - Route 53 basically says: "Here's where you should go."
+   - GA says: "Send your traffic to me, and I'll route it to the appropriate healthy AWS endpoint."
+
+                        USERS
+                          |
+                          v
+                    Route 53
+                  DNS decision
+                          |
+                          v
+              Global Accelerator
+              Global traffic path
+                 /            \
+                /              \
+               v                v
+        ┌─────────────┐   ┌─────────────┐
+        │  REGION A   │   │  REGION B   │
+        │             │   │             │
+        │     ALB     │   │     ALB     │
+        │      │      │   │      │      │
+        │   ┌──┴──┐   │   │   ┌──┴──┐   │
+        │   │     │   │   │   │     │   │
+        │  AZ-1  AZ-2  │   │  AZ-1  AZ-2 │
+        │   │     │   │   │   │     │   │
+        │  EC2   EC2   │   │  EC2   EC2 │
+        └─────────────┘   └─────────────┘
+
+   - three levels of failure
+
+                        FAILURE
+                            │
+              ┌─────────────┼─────────────────────────┐
+              │             │                         │
+              ▼             ▼                         ▼
+          INSTANCE         AZ                      REGION
+              │             │                         │
+              ▼             ▼                         ▼
+             ASG         ALB/NLB Multi-AZ      Route 53/GA Multi-Region
+              │            │                          │
+              ▼            │                          ▼
+    sends traffic to AZ-B  │                  Global Accelerator ->  us-west-2   
+                           ▼
+                      sends traffic to AZ-B
+
+   - Multi-AZ - High availability
+   - Multi-Region - Regional disaster recovery / regional resilience / global latency
+
+   - note: Multi-AZ application does NOT automatically mean Multi-AZ database.
+
+   - RDS Multi-AZ
+                       RDS
+                        │
+               ┌────────┴────────┐
+               ▼                 ▼
+            AZ-A              AZ-B
+            Primary            Standby
+               │                  │
+               └── synchronous ───┘
+                  replication
+   - Application normally talks to the primary. If the primary AZ fails: the standby in AZ-B is promoted to primary.
+   - RDS Read Replica is different. It is used for read scaling and can be in the same or different region, but it does not provide automatic failover like Multi-AZ.
+
+   - Aurora - Aurora changes the picture. Aurora stores its database storage across multiple AZs
+                          
+                          Aurora Cluster
+                                │
+                  ┌─────────────┼─────────────┐
+                  ▼             ▼             ▼
+                  AZ-A          AZ-B          AZ-C
+                  │             │             │
+                  DB            DB            DB
+                  └─────────────┼─────────────┘
+                           Shared storage
+      - For cross-Region DR
+         - Multi-Region database architecture
+         - aurora cluster in primary region will serve read + write traffic, while secondary regions will serve read-only traffic.
+         - Secondary regions can be promoted to primary in case of a regional failure.
+         - promotion will be done automatically by Aurora Global Database.
+         
+                          Aurora Global Database
+
+                           us-east-1
+                        Writer Region
+                              │
+                              │ replication
+                              ▼
+                           us-west-2
+                        Secondary   
+
+      - compare with RDS
+
+          Aurora Cluster
+            |
+            +---- Writer
+            |      READ + WRITE
+            |
+            +---- Aurora Replica -> Reader normally, but can automatically become Writer when the Aurora Writer fails
+                  READ
+                  ↓
+               automatic
+               promotion
+                  ↓
+               Writer
+               READ + WRITE 
 
 
+         RDS Primary
+         READ + WRITE
+               |
+               ↓
+         RDS Read Replica -> Reader normally, but cannot automatically become Writer
+         READ
+
+
+         RDS Primary
+               |
+               | synchronous replication
+               ↓
+            Standby
+               |
+               ↓
+            Automatic failover
+
+      - DynamoDB is different again
+         - DynamoDB is already a regional managed service, AWS manages replication, scaling, and availability automatically inside the region.
+         - you don't have to deploy in multiple availability zones manually.
+
+            DynamoDB
+               │
+               ├── Regional HA → AWS handles underlying AZ redundancy
+               │
+               └── Multi-Region → Global Tables
+
+      - For DR
+         - RTO -> downtime
+         - RPO -> data loss
+
+      - common architecture -> ALB + ASG + RDS Multi-AZ
+
+                        ALB
+                     /       \
+                     ▼         ▼
+                  AZ-A       AZ-B
+                  EC2        EC2
+                     │          │
+                     └────┬─────┘
+                        │
+                     RDS Multi-AZ
+                     /       \
+                  Primary     Standby
+                  AZ-A        AZ-B
+
+
+      - common architecture for DR -> ALB + ASG + RDS Multi-AZ + Cross-Region Replication
+
+                                         Route53 / GA
+                                          /      \
+                                          ▼        ▼
+                                       Region A  Region B
+                                          │          │
+                                       ALB        ALB
+                                          │          │
+                                       ASG         ASG
+                                          │          │
+                                    EC2 across  EC2 across
+                                       AZs          AZs
+                                          │          │
+                                          DB         DB
+
+
+      - DB strategy for DR
+            RDS:
+            cross-region replica/DR strategy
+
+            Aurora:
+            Aurora Global Database
+
+            DynamoDB:
+            Global Tables
+   
+# 87. why do I need SQS
+- without SQS
+   - ```text
+     API
+      │
+      ▼
+      Payment Service
+      │
+      ├── overloaded
+      ├── timeout
+      └── errors
+
+      Normal traffic: 100 orders/sec but black friday sell can spike 50,000 orders/sec
+
+      API
+      │
+      ▼
+      SQS
+      │
+      │ 50,000 messages waiting
+      │
+      ▼
+      Workers
+      ├── Lambda
+      ├── Lambda
+      ├── Lambda
+      ├── Lambda
+      └── Lambda
+
+      Now the queue absorbs the traffic spike.
+
+      SQS Standard - Process lots of jobs. Exact order isn't important.
+      SQS FIFO - First In, First Out
+
+      Short polling - You're constantly asking.
+      Long polling - Waits until a message is available or the timeout is reached.
+
+      SNS = "Tell everyone"
+
+         Order Service
+            │
+            ▼
+         SNS
+            │
+      ┌────┼────────┬──────────┐
+      ▼    ▼        ▼          ▼
+      Email SQS    Lambda     HTTP
+
+
+      - big picture
+
+                     ┌──────────────────────┐
+                     │       PRODUCER       │
+                     │   Order Application  │
+                     └──────────┬───────────┘
+                                 │
+                     "Something happened"
+                                 │
+                  ┌──────────────┼──────────────┐
+                  │              │              │
+                  ▼              ▼              ▼
+
+               SQS             SNS        EventBridge
+                  │              │              │
+            "DO THIS JOB"   "TELL EVERYONE" "ROUTE EVENT"
+                  │              │              │
+                  ▼              ▼              ▼
+               Worker        Subscribers     Rules
+                  │
+                  ▼
+               Process
+
+
+                        KINESIS
+                           │
+                  "CONTINUOUS STREAM"
+                           │
+                  ┌──────────┼──────────┐
+                  ▼          ▼          ▼
+               Fraud      Analytics   Recommendation
+               System      System       System
+
+
+                        FIREHOSE
+                           │
+                  "DELIVER STREAM"
+                           │
+                           ▼
+                  ┌─────────────┐
+                  │     S3      │
+                  │  Redshift   │
+                  │ OpenSearch  │
+                  └─────────────┘
+   ```
+
+# 88. DR
+
+Backup & Restore	Nothing running
+Pilot Light	Core components running
+Warm Standby	Smaller environment running
+Multi-Site Active/Active	Both environments serving traffic
+
+# 89. HPC
+
+HPC (High Performance Computing) involves using supercomputers and parallel processing techniques for solving complex computational problems.
+
+Key AWS services for HPC:
+- EC2 Spot Instances
+- EC2 High Performance Computing (HPC) instances
+- AWS Batch
+- AWS ParallelCluster
+- FSx for Lustre
+
+- HPC application needs 135,000 IOPS, Storage layer is replicated across all instances in a cluster
+
+        HPC Cluster
+ ┌─────────┬─────────┬─────────┐
+ │ EC2 #1  │ EC2 #2  │ EC2 #3  │
+ └────┬────┴────┬────┴────┬────┘
+      │         │         │
+      ▼         ▼         ▼
+   Instance   Instance   Instance
+    Store      Store      Store
+
+Instance Store is physically attached to the EC2 host. Because it is local storage, it can provide very high I/O performance and extremely low latency.
+
+| Storage            | Mental model                               | HPC clue                                |
+| ------------------ | ------------------------------------------ | --------------------------------------- |
+| **Instance Store** | 🚀 Local, extremely fast temporary storage | **Very high IOPS / low latency**        |
+| **EBS gp3**        | General-purpose block storage              | Normal workloads                        |
+| **EBS io1/io2**    | Provisioned high-IOPS block storage        | Need guaranteed/provisioned IOPS        |
+| **EBS st1**        | HDD throughput                             | Large sequential workloads              |
+| **S3**             | Object storage                             | Huge durable datasets                   |
+| **EFS**            | Shared file system                         | Multiple EC2s need shared files         |
+| **FSx for Lustre** | HPC shared filesystem                      | HPC + shared high-throughput filesystem |
+
+
+# 90. VPC Endpoints
+Does my private EC2 need S3/DynamoDB?" → Gateway Endpoint
+Does my private EC2 need another AWS service privately?" → Interface Endpoint
+
+# 91. container
+
+Layer 1: Orchestration — ECS or EKS
+
+ECS → AWS's own container orchestrator
+EKS → Kubernetes orchestrator
+
+
+Layer 2: Compute — EC2 or Fargate
+
+EC2 → you manage the servers
+Fargate → AWS manages the servers
+
+
+                 Container
+                    │
+          ┌─────────┴─────────┐
+          │                   │
+         ECS                 EKS
+          │                   │
+     ┌────┴────┐         ┌────┴────┐
+     │         │         │         │
+    EC2     Fargate     EC2     Fargate
+     │         │         │         │
+   You       AWS       You       AWS
+  manage    manages   manage    manages
+  servers   servers   servers   servers
+
+# 92. Final notes
+
+NETWORK
+────────────────────────────
+
+Static/cache/video
+→ CloudFront
+
+Global dynamic application
+→ Global Accelerator
+
+DNS
+→ Route 53
+
+S3/DynamoDB private access
+→ Gateway VPC Endpoint
+
+Other AWS service private access
+→ Interface Endpoint / PrivateLink
+
+Private EC2 → Internet
+→ NAT Gateway
+
+2 VPCs
+→ VPC Peering
+
+Many VPCs
+→ Transit Gateway
+
+One private service
+→ PrivateLink
+
+On-prem ↔ AWS
+→ VPN / Direct Connect
+
+HTTP/HTTPS
+→ ALB
+
+TCP/UDP/TLS
+→ NLB
+
+API management
+→ API Gateway
+
+
+COMPUTE
+────────────────────────────
+
+Bigger machine
+→ Vertical scaling
+
+More machines
+→ Horizontal scaling / ASG
+
+Unpredictable
+→ On-Demand
+
+Interruptible
+→ Spot
+
+Long-term predictable
+→ Reserved / Savings Plan
+
+Need guaranteed AZ capacity
+→ Capacity Reservation
+
+Containers
+→ ECS
+
+Kubernetes
+→ EKS
+
+Serverless containers
+→ Fargate
+
+Serverless code
+→ Lambda
+
+
+STORAGE
+────────────────────────────
+
+Object
+→ S3
+
+Block
+→ EBS
+
+Shared Linux filesystem
+→ EFS
+
+Windows / SMB / AD
+→ FSx Windows
+
+HPC shared filesystem
+→ FSx Lustre
+
+Very fast local temporary storage
+→ Instance Store
+
+General SSD
+→ gp3
+
+Provisioned IOPS
+→ io1/io2
+
+HDD throughput
+→ st1
+
+Cold HDD
+→ sc1
+
+Move files
+→ DataSync
+
+On-prem storage bridge
+→ Storage Gateway
+
+Huge physical migration
+→ Snowball
+
+
+DATABASE
+────────────────────────────
+
+HA
+→ Multi-AZ
+
+Read scaling
+→ Read Replica
+
+Aurora read + failover
+→ Aurora Replica
+
+Cross-Region Aurora DR
+→ Aurora Global Database
+
+Too many DB connections
+→ RDS Proxy
+
+Repeated reads
+→ ElastiCache
+
+Unknown/unpredictable DynamoDB traffic
+→ On-Demand
+
+Restore DynamoDB to previous second
+→ PITR
+
+
+MESSAGING
+────────────────────────────
+
+Queue/work
+→ SQS
+
+Fan-out/notification
+→ SNS
+
+Event routing
+→ EventBridge
+
+Continuous high-volume stream
+→ Kinesis
+
+Workflow
+→ Step Functions
+
+Repeatedly failed messages
+→ DLQ
+
+
+SECURITY
+────────────────────────────
+
+Web attacks
+→ WAF
+
+DDoS
+→ Shield
+
+Threat detection
+→ GuardDuty
+
+Vulnerability
+→ Inspector
+
+Sensitive S3 data
+→ Macie
+
+AWS API audit
+→ CloudTrail
+
+Monitoring
+→ CloudWatch
+
+Configuration/compliance
+→ Config
+
+Secret
+→ Secrets Manager
+
+Encryption keys
+→ KMS
+
+One IAM identity maximum
+→ Permission Boundary
+
+Account/OU maximum
+→ SCP
+
+
+ANALYTICS
+────────────────────────────
+
+ETL/catalog
+→ Glue
+
+SQL on S3
+→ Athena
+
+Data warehouse
+→ Redshift
+
+BI dashboard
+→ QuickSight
+
+Search/log analytics
+→ OpenSearch
+
+Audio → text
+→ Transcribe
+
+
+MIGRATION
+────────────────────────────
+
+Database
+→ DMS
+
+Server/VM
+→ MGN
+
+Files
+→ DataSync
+
+Physical huge data
+→ Snowball
+
+Application → container
+→ App2Container
 
 
 

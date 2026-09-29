@@ -248,6 +248,14 @@ example.com/products
 
 can be routed to different target groups.
 
+### SNI
+
+- Server Name Indication.
+- Allows multiple SSL certificates to be hosted on the same IP address.
+- Useful for hosting multiple secure websites behind a single ALB.
+
+You can host multiple TLS secured applications, each with its own TLS certificate, behind a single load balancer. To use SNI, all you need to do is bind multiple certificates to the same secure listener on your load balancer. ALB will automatically choose the optimal TLS certificate for each client.
+
 ## NLB
 
 - Network Load Balancer.
@@ -797,13 +805,13 @@ Amazon Route 53 is a highly available, scalable DNS service.
 ## Routing policies
 
 ```text
-Simple
-Weighted
-Latency-based
-Failover
-Geolocation
-Geoproximity
-Multivalue answer
+Simple → One resource
+Weighted → % of traffic
+Latency-based → Lowest latency
+Failover → Primary → Secondary
+Geolocation → User's country/continent
+Geoproximity → Geographic area + adjustable bias
+Multivalue answer → Multiple healthy IPs
 ```
 
 ### Latency routing
@@ -1979,6 +1987,17 @@ HDD EBS
 → sc1 → not a boot volume
 ```
 
+## Amazon EBS Volume Types
+
+| Type | Storage | Main Focus | IOPS | Throughput | Typical Use |
+|------|---------|------------|------|------------|-------------|
+| **gp3** | SSD | General Purpose | Up to **80,000 IOPS** | Up to **2,000 MB/s** | Most applications, boot volumes, web/app servers |
+| **gp2** | SSD | General Purpose | Up to **16,000 IOPS** | Up to **250 MB/s** | General workloads, legacy applications |
+| **io2** | SSD | Provisioned IOPS | Up to **256,000 IOPS** | Up to **4,000 MB/s** | Mission-critical databases, high-performance workloads |
+| **io1** | SSD | Provisioned IOPS | Up to **64,000 IOPS** | Up to **1,000 MB/s** | High-performance databases and applications |
+| **st1** | HDD | High Throughput | Up to **500 IOPS** | Up to **500 MB/s** | Big data, log processing, data warehouses, sequential workloads |
+| **sc1** | HDD | Low-Cost Throughput | Up to **250 IOPS** | Up to **250 MB/s** | Infrequently accessed data, large sequential workloads |
+
 # 44. STORAGE COST MEMORY
 
 The supplied notes use this simplified ordering:
@@ -2508,6 +2527,14 @@ For HPC workloads requiring low latency/high throughput between EC2 instances, p
 ```text
 → Cluster Placement Group
 ```
+
+## EC2 Placement Groups
+
+| Placement Group | Where / Placement | Main Idea | Main Focus | Typical Use | Think |
+|-----------------|-------------------|-----------|------------|-------------|-------|
+| **Cluster** ⭐ | **Same AZ** | Instances are placed close together on the same underlying hardware area | Very low latency + high network throughput | HPC, high-performance computing, network-intensive applications | **Performance** |
+| **Spread** | **Same AZ** | Each instance is placed on **separate underlying hardware** | Minimize simultaneous hardware failure | Critical applications requiring failure isolation | **Failure Isolation** |
+| **Partition** | **Same AZ** | Instances are divided into **multiple isolated partitions**, each using separate underlying hardware | Failure isolation for large distributed systems | Kafka, Cassandra, Hadoop, HDFS | **Distributed Systems** |
 
 # 59. ALB vs NLB — VISUAL REVISION
 
