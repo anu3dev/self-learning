@@ -4647,6 +4647,46 @@ Physical huge data
 Application → container
 → App2Container
 
+# 93. IP Address Management - IPv4
 
+-  IPv4 Address
+   - An IPv4 address has 32 bits, divided into 4 groups (octets)
+      ```text
+            192       .168       .1        .25
+          8 bits    8 bits    8 bits    8 bits
 
+          8 + 8 + 8 + 8 = 32 bits
+      ```
+   - CIDR
+      - CIDR tells us how many of the 32 bits are used for the network portion
+      - 192.168.1.25/24
+         - /24 → first 24 bits is network and Remaining 8 bits is host/address space
+         - 192.168.1.0	Network address
+         - 192.168.1.1 → 192.168.1.254	Traditionally usable host addresses
+         - 192.168.1.255	Broadcast address
+         - This is a /24 subnet, meaning it has 256 IP addresses (2^8), - 2 (network + broadcast) with 254 usable host addresses
+      - 192.168.0.0/16
+         - This is a /16 subnet, meaning it has 65,536 IP addresses (2^16), - 2 (network + broadcast) with 65,534 usable host addresses
+   - Subnetting — Splitting a Network into smaller subnets
+      - splitting one large network into smaller networks
+      - 192.168.1.0/24 => 192.168.1.0 → 192.168.1.255 Now split it into 2 smaller networks.
+         - 192.168.1.0/25 => 192.168.1.0 → 192.168.1.127
+         - 192.168.1.128/25 => 192.168.1.128 → 192.168.1.255
+   - private IPv4
+      - 10.0.0.0/8         => 10.0.0.0 → 10.255.255.255        => 2^(32-8) = 2^24 = 16,777,216
+      - 172.16.0.0/12      => 172.16.0.0 → 172.31.255.255      => 2^(32-12) = 2^20 = 1,048,576
+      - 192.168.0.0/16     => 192.168.0.0 → 192.168.255.255    => 2^(32-16) = 2^16 = 65,536
+- IPv6
+   - An IPv6 address has 128 bits, divided into 8 groups (hextets)
+      ```text
+            2001       :0db8       :85a3       :0000       :0000       :8a2e       :0370       :7334
+          16 bits    16 bits    16 bits    16 bits    16 bits    16 bits    16 bits    16 bits
 
+          16 * 8 = 128 bits
+      ```
+   - CIDR
+      - CIDR tells us how many of the 128 bits are used for the network portion
+      - 2001:0db8:85a3:0000:0000:8a2e:0370:7334/64
+         - /64 → first 64 bits is network and Remaining 64 bits is host/address space
+         - 2001:0db8:85a3:0000:0000:8a2e:0370:0000 → 2001:0db8:85a3:0000:0000:8a2e:0370:ffff  Traditionally usable host addresses
+         - This is a /64 subnet, meaning it has 2^64 IP addresses, with 2^64 - 1 usable host addresses
