@@ -767,7 +767,7 @@ On-Premises
      ↓
 Direct Connect
      ↓
-AWS
+    AWS
 ```
 
 ## Direct Connect resiliency
@@ -798,7 +798,7 @@ Customer Gateway
     │
 Virtual Private Gateway
     │
-   AWS VPC
+AWS VPC
 ```
 
 - Uses IPsec to secure communication between on-premises and AWS VPC.
@@ -982,7 +982,7 @@ WAF
   ↓
 CloudFront origin
   ↓
-S3
+ S3
 ```
 
 For origin protection, use CloudFront origin access controls/identity so users do not bypass CloudFront and directly access S3.
@@ -3928,8 +3928,8 @@ Data Exchange
 │              │ Security │   │ Dev      │     │ Production   │                               │
 │              │ OU       │   │ OU       │     │ OU           │                               │
 │              └────┬─────┘   └────┬─────┘     └──────┬───────┘                               │
-│                   │              │                   │                                      │
-│                   ▼              ▼                   ▼                                      │
+│                   │              │                  │                                      │
+│                   ▼              ▼                  ▼                                      │
 │              Security       Dev Account         Prod Account                                │
 │              Accounts      Account(s)          Account(s)                                   │
 │                                                                                             │
@@ -4056,39 +4056,36 @@ Data Exchange
                   DNS decision
                           |
                           v
-              Global Accelerator
-              Global traffic path
-                 /            \
-                /              \
-               v                v
-        ┌─────────────┐   ┌─────────────┐
-        │  REGION A   │   │  REGION B   │
-        │             │   │             │
-        │     ALB     │   │     ALB     │
-        │      │      │   │      │      │
-        │   ┌──┴──┐   │   │   ┌──┴──┐   │
-        │   │     │   │   │   │     │   │
-        │  AZ-1  AZ-2  │   │  AZ-1  AZ-2 │
-        │   │     │   │   │   │     │   │
-        │  EC2   EC2   │   │  EC2   EC2 │
-        └─────────────┘   └─────────────┘
+                  Global Accelerator - Global traffic path
+                     |                    |
+                     v                    v
+               ┌─────────────┐       ┌─────────────┐
+               │  REGION A   │       │  REGION B   │
+               │             │       │             │
+               │     ALB     │       │     ALB     │
+               │      │      │       │      │      │
+               │   ┌──┴──┐   │       │   ┌──┴──┐   │
+               │   │     │   │       │   │     │   │
+               │  AZ-1  AZ-2 │       │  AZ-1  AZ-2 │
+               │   │     │   │       │   │     │   │
+               │  EC2   EC2  │       │  EC2   EC2  │
+               └─────────────┘       └─────────────┘
 
    - three levels of failure
 
-                        FAILURE
-                            │
-              ┌─────────────┼─────────────────────────┐
-              │             │                         │
-              ▼             ▼                         ▼
-          INSTANCE         AZ                      REGION
-              │             │                         │
-              ▼             ▼                         ▼
-             ASG         ALB/NLB Multi-AZ      Route 53/GA Multi-Region
-              │            │                          │
-              ▼            │                          ▼
-    sends traffic to AZ-B  │                  Global Accelerator ->  us-west-2   
-                           ▼
-                      sends traffic to AZ-B
+                                           FAILURE
+                                              │
+              ┌───────────────────────────────┼───────────────────────────────────┐
+              │                               │                                   │
+              ▼                               ▼                                   ▼
+          INSTANCE                           AZ                                REGION
+              │                               │                                   │
+              ▼                               ▼                                   ▼
+             ASG                       ALB/NLB Multi-AZ               Route 53/GA Multi-Region
+              │                               │                                   │
+              ▼                               ▼                                   ▼
+         sends traffic to AZ-B       sends traffic to AZ-B              Global Accelerator ->  us-west-2                                     
+                        
 
    - Multi-AZ - High availability
    - Multi-Region - Regional disaster recovery / regional resilience / global latency
@@ -4096,15 +4093,18 @@ Data Exchange
    - note: Multi-AZ application does NOT automatically mean Multi-AZ database.
 
    - RDS Multi-AZ
-                       RDS
-                        │
-               ┌────────┴────────┐
-               ▼                 ▼
-            AZ-A              AZ-B
-            Primary            Standby
-               │                  │
-               └── synchronous ───┘
-                  replication
+
+                          RDS
+                           │
+                  ┌────────┴─────────┐
+                  ▼                  ▼
+               AZ-A                AZ-B
+               Primary            Standby
+                  │                  │
+                  └── synchronous ───┘
+                     replication
+
+
    - Application normally talks to the primary. If the primary AZ fails: the standby in AZ-B is promoted to primary.
    - RDS Read Replica is different. It is used for read scaling and can be in the same or different region, but it does not provide automatic failover like Multi-AZ.
 
@@ -4135,49 +4135,52 @@ Data Exchange
                            us-west-2
                         Secondary   
 
-      - compare with RDS
+   - compare with RDS
 
-          Aurora Cluster
-            |
-            +---- Writer
-            |      READ + WRITE
-            |
-            +---- Aurora Replica -> Reader normally, but can automatically become Writer when the Aurora Writer fails
+         
+               Aurora Cluster
+                     |
+                     │  -> Writer
+                     |        READ + WRITE
+                     |
+                     │  -> Aurora Replica -> Reader normally, but can automatically become Writer when the Aurora Writer fails
+                              READ
+                              ↓
+                           automatic
+                           promotion
+                              ↓
+                           Writer
+                           READ + WRITE 
+
+
+                  RDS Primary
+                  READ + WRITE
+                        |
+                        ↓
+                  RDS Read Replica -> Reader normally, but cannot automatically become Writer
                   READ
-                  ↓
-               automatic
-               promotion
-                  ↓
-               Writer
-               READ + WRITE 
 
 
-         RDS Primary
-         READ + WRITE
-               |
-               ↓
-         RDS Read Replica -> Reader normally, but cannot automatically become Writer
-         READ
+                  RDS Primary
+                        |
+                        | synchronous replication
+                        ↓
+                     Standby
+                        |
+                        ↓
+                     Automatic failover
+         
 
-
-         RDS Primary
-               |
-               | synchronous replication
-               ↓
-            Standby
-               |
-               ↓
-            Automatic failover
-
-      - DynamoDB is different again
-         - DynamoDB is already a regional managed service, AWS manages replication, scaling, and availability automatically inside the region.
-         - you don't have to deploy in multiple availability zones manually.
+   - DynamoDB is different again
+      - DynamoDB is already a regional managed service, AWS manages replication, scaling, and availability automatically inside the region.
+      - you don't have to deploy in multiple availability zones manually.
 
             DynamoDB
                │
                ├── Regional HA → AWS handles underlying AZ redundancy
                │
-               └── Multi-Region → Global Tables
+               └── Multi-Region → Global Tables 
+
 
       - For DR
          - RTO -> downtime
@@ -4185,8 +4188,8 @@ Data Exchange
 
       - common architecture -> ALB + ASG + RDS Multi-AZ
 
-                        ALB
-                     /       \
+                         ALB
+                      /       \
                      ▼         ▼
                   AZ-A       AZ-B
                   EC2        EC2
@@ -4201,8 +4204,8 @@ Data Exchange
 
       - common architecture for DR -> ALB + ASG + RDS Multi-AZ + Cross-Region Replication
 
-                                         Route53 / GA
-                                          /      \
+                                          Route53 / GA
+                                           /      \
                                           ▼        ▼
                                        Region A  Region B
                                           │          │
@@ -4228,7 +4231,8 @@ Data Exchange
    
 # 87. why do I need SQS
 - without SQS
-   - ```text
+   
+   ```text
      API
       │
       ▼
@@ -4269,7 +4273,7 @@ Data Exchange
             │
             ▼
          SNS
-            │
+           │
       ┌────┼────────┬──────────┐
       ▼    ▼        ▼          ▼
       Email SQS    Lambda     HTTP
@@ -4323,10 +4327,12 @@ Data Exchange
 
 # 88. DR
 
-Backup & Restore	Nothing running
-Pilot Light	Core components running
-Warm Standby	Smaller environment running
-Multi-Site Active/Active	Both environments serving traffic
+```text
+Backup & Restore ->	Nothing running
+Pilot Light	-> Core components running
+Warm Standby	-> Smaller environment running
+Multi-Site Active/Active	-> Both environments serving traffic
+```
 
 # 89. HPC
 
@@ -4341,14 +4347,16 @@ Key AWS services for HPC:
 
 - HPC application needs 135,000 IOPS, Storage layer is replicated across all instances in a cluster
 
+   ```text
         HPC Cluster
- ┌─────────┬─────────┬─────────┐
- │ EC2 #1  │ EC2 #2  │ EC2 #3  │
- └────┬────┴────┬────┴────┬────┘
-      │         │         │
-      ▼         ▼         ▼
-   Instance   Instance   Instance
-    Store      Store      Store
+   ┌─────────┬─────────┬─────────┐
+   │ EC2 #1  │ EC2 #2  │ EC2 #3  │
+   └────┬────┴────┬────┴────┬────┘
+        │         │         │
+        ▼         ▼         ▼
+    Instance   Instance   Instance
+     Store      Store      Store
+   ```
 
 Instance Store is physically attached to the EC2 host. Because it is local storage, it can provide very high I/O performance and extremely low latency.
 
@@ -4647,7 +4655,7 @@ Physical huge data
 Application → container
 → App2Container
 
-# 93. IP Address Management - IPv4
+# 93. IP Address Management - IPv4 and IPv6
 
 -  IPv4 Address
    - An IPv4 address has 32 bits, divided into 4 groups (octets)
